@@ -15,7 +15,7 @@
 
     <div class="container-sm">
         <!--BARRA DE NAVEGACIÓN -->
-        <nav class="navbar navbar-expand-sm border border-2 bg-primary rounded-2" style="--bs-bg-opacity: .80;">
+        <nav class="navbar navbar-expand-sm border border-2 bg-primary rounded-2">
             <div class="container-fluid">
                 <a class="navbar-brand text-white" href="#">
                     <i class="far fa-folder p-2"></i>
