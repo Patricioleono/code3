@@ -1,12 +1,17 @@
-.custom{
-    background-color: #1657B8 !important ;
+.custom {
+    background-color: #3282B8 !important;
 }
 
+body {
+    background-color: lightgray !important;
+}
+
+/*button cerrar session*/
 .buttonCustom {
     display: inline-block !important;
     padding: 0.2em 0.9em !important;
     border: 0.1em solid #ffffff !important;
-    background-color: #1657B8;
+    background-color: #3282B8;
     margin: 0 0.3em 0.3em 0 !important;
     border-radius: 0.30em !important;
     box-sizing: border-box !important;
@@ -16,9 +21,48 @@
     color: #ffffff !important;
     text-align: center !important;
     transition: all 0.3s !important;
-  }
-  
-  .buttonCustom:hover {
+}
+
+.buttonCustom:hover {
     color: #ffffff !important;
     background-color: #c23434 !important;
-  }
+}
+
+
+/*BUTTON CUSTOM 2*/
+.buttonCustomCrear {
+    display: inline-block !important;
+    padding: 0.2em 0.9em !important;
+    border: 0.1em solid #ffffff !important;
+    background-color: #3282B8;
+    margin: 0 0.3em 0.3em 0 !important;
+    border-radius: 0.30em !important;
+    box-sizing: border-box !important;
+    text-decoration: none !important;
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 400 !important;
+    color: #ffffff !important;
+    text-align: center !important;
+    transition: all 0.3s !important;
+}
+
+.buttonCustomCrear:hover {
+    color: #ffffff !important;
+    background-color: #1b9c66 !important;
+}
+
+.colorRed {
+    background-color: #EB5353 !important;
+}
+
+.colorYellow {
+    background-color: #F9D923 !important;
+}
+
+.colorGreen {
+    background-color: #36AE7C !important;
+}
+
+.colorBlue {
+    background-color: #3a99be !important;
+}
