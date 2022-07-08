@@ -37,6 +37,7 @@ class inicioSession_controller extends CI_Controller
 		
 		$this->load->view('template/cabecera');
     	$this->load->view('gestorDocumentos');
+		$this->load->view('template/pieDePagina');
 	}
 
 	
