@@ -2,11 +2,29 @@
     background-color: #3282B8 !important;
 }
 
-body {
-    background-color: lightgray !important;
+.bodyCustom {
+    background-color: #f8f8f8 !important;
 }
 
-/*button cerrar session*/
+.colorRed {
+    background-color: #EB5353 !important;
+}
+
+.colorYellow {
+    background-color: #F9D923 !important;
+}
+
+.colorGreen {
+    background-color: #36AE7C !important;
+}
+
+.colorBlue {
+    background-color: #3a99be !important;
+}
+
+
+/*BUTTON CUSTOM*/
+/*CERRAR SESSION*/
 .buttonCustom {
     display: inline-block !important;
     padding: 0.2em 0.9em !important;
@@ -29,13 +47,12 @@ body {
 }
 
 
-/*BUTTON CUSTOM 2*/
+/*CREAR DOCUMENTO*/
 .buttonCustomCrear {
     display: inline-block !important;
     padding: 0.2em 0.9em !important;
     border: 0.1em solid #ffffff !important;
     background-color: #3282B8;
-    margin: 0 0.3em 0.3em 0 !important;
     border-radius: 0.30em !important;
     box-sizing: border-box !important;
     text-decoration: none !important;
@@ -51,18 +68,32 @@ body {
     background-color: #1b9c66 !important;
 }
 
-.colorRed {
-    background-color: #EB5353 !important;
+/*COLOR ACTIVO DE LA LISTA*/
+a .text-center,
+.active {
+    background-color: #3282B8 !important;
+    color: #ffffff !important;
 }
 
-.colorYellow {
-    background-color: #F9D923 !important;
+/*MODIFICA BACKGROUND  DEL COLOR DATA-TABLE*/
+table .active,
+.show {
+    background-color: #fafafa !important;
+    color: black !important;
 }
 
-.colorGreen {
-    background-color: #36AE7C !important;
-}
+/*BOTÓN MENU LATERAL*/
 
-.colorBlue {
-    background-color: #3a99be !important;
+.lateral{
+    display: none !important;
+}
+@media (max-width: 768px) {
+    .lateral{
+        display: inline-block !important;
+        position:sticky !important;
+        
+    }
+    .bodyCustom{
+        background-color: lightblue !important;
+    }
 }
