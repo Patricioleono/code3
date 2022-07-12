@@ -3,12 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <!--CONTENEDOR SIDEBAR & DATA-TABLE -->
 <div class="d-flex" id="wrapper">
-    <div class="bg-white border border-1" id="sidebar-wrapper">
-        <div class="sidebar-heading">
-            <button class="btn btn-outline-primary">
+    <div class="bg-white border border-1 sidebarBoton" id="sidebar-wrapper">
+        <div class="sidebar-heading border">
+            <button class="btn btn-primary buttonCustomCrear">
                 <i class="fa-solid fa-square-plus"></i>
                 Crear Documento
             </button>
+            <button class="btn btn-close lateral ms-2 mt-1 closeBar" id="sidebarToggle2" ></button>
         </div>
 
         <div class="list-group list-group-flush">
@@ -46,12 +47,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
     </div>
 
 
-
-    <div class="justify-content-start pt-2 ps-2">
-            <button class=" btn btn-success lateral" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
-        </div>
     <div id="page-content-wrapper" class="container">
-        
+
         <div class="">
             <div class="col col-12 tab-content" id="nav-tabContent">
                 <table class="tab-pane fade show table border border-3 text-center" id="list-recibidos" role="tabpanel" aria-labelledby="list-recibidos-list">

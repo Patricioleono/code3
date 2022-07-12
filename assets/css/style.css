@@ -87,13 +87,10 @@ table .active,
 .lateral{
     display: none !important;
 }
-@media (max-width: 768px) {
+@media (max-width: 1300px) {
     .lateral{
         display: inline-block !important;
-        position:sticky !important;
+        position:absolute !important;
         
-    }
-    .bodyCustom{
-        background-color: lightblue !important;
     }
 }
