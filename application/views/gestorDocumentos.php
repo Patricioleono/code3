@@ -1,60 +1,109 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
-<!--CONTENEDOR SIDEBAR & DATA-TABLE -->
-<div class="d-flex" id="wrapper">
-    <div class="bg-white border border-1 sidebarBoton" id="sidebar-wrapper">
-        <div class="sidebar-heading border">
-            <button class="btn btn-primary buttonCustomCrear">
-                <i class="fa-solid fa-square-plus"></i>
-                Crear Documento
+
+
+
+<!--CONTENIDO-->
+<div class="w-100">
+    <!--CONTENIDO DE LA TABLA-->
+    <nav class="navbar navbar-expand-md text-white custom border-bottom">
+        <div class="container-fluid">
+
+            <div class="collapse navbar-collapse row" id="navbarSupportedContent">
+                <ul class="navbar-nav mt-2">
+                    <li class="nav-item col">
+                        <a class="navbar-brand text-white" href="#">
+                            <i class="far fa-folder p-1"></i>
+                            Seguimiento de Documentación
+                        </a>
+                    </li>
+
+                    <!--BÚSQUEDA-->
+                    <li class="nav-item dropdown input-group col">
+                        <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <input type="text" class="form-control text-center" placeholder="Buscar Documentos" aria-label="Buscar Documentos" aria-describedby="addon-wrapping">
+                        <button class="input-group-text" id="dropDownFiltro" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+
+                        <div class="dropdown-menu dropdown-menu col-12" aria-labelledby="navbarDropdown">
+                            <div class="input-group mb-3 ps-2 pe-2">
+                                <span class="input-group-text" id="basic-addon3">Emisor/De:</span>
+                                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                            </div>
+                            <div class="input-group mb-3 ps-2 pe-2">
+                                <span class="input-group-text" id="basic-addon3">Receptor/Para:</span>
+                                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                            </div>
+                            <div class="input-group mb-3 ps-2 pe-2">
+                                <span class="input-group-text" id="basic-addon3">Asunto</span>
+                                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                            </div>
+                            <div class="pe-2 ps-2">
+                                <select class="form-select mb-3 text-center" aria-label="Default select example">
+                                    <option selected>Seleccione Estado de Documento</option>
+                                    <option value="1">Recibido</option>
+                                    <option value="2">Pendiente</option>
+                                    <option value="3">Aprobado</option>
+                                </select>
+
+                            </div>
+                            <div class="input-group mb-3 ps-2 pe-2">
+                                <span class="input-group-text" id="basic-addon3">Buscar Desde</span>
+                                <input type="date" class="form-control" id="fecha1" aria-describedby="basic-addon3">
+                                <span class="input-group-text" id="basic-addon3">Hasta</span>
+                                <input type="date" class="form-control" id="fecha2" aria-describedby="basic-addon3">
+                            </div>
+                            <hr class="dropdown-divider">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" type="submit">Buscar</button>
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <!--USUARIO-->
+                    <li class="nav-item dropdown text-end col">
+                        <i class="fa-regular fa-calendar fs-6"></i>
+                        <span class="me-3"> 13-07-2022 </span>
+
+                        <a class="btn btn-outline-light dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuario <i class="fa-regular fa-circle-user"></i>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#!">
+                                Cerrar Session
+                                <i class="fa-regular fa-rectangle-xmark ps-1 ms-4"></i>
+                            </a>
+                            <a class="dropdown-item" href="#!">
+                                Volver al Intranet
+                                <i class="fa-solid fa-arrow-rotate-left ms-2"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <br />
+        <p class="ps-4" id="hidden">
+            <button class="btn btn-primary lateral" id="sidebarToggle2" style="display:none;">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Desplegar Menu
             </button>
-            <button class="btn btn-close lateral ms-2 mt-1 closeBar" id="sidebarToggle2" ></button>
-        </div>
-
-        <div class="list-group list-group-flush">
-
-            <a class="list-group-item" data-bs-toggle="list" href="#list-recibidos">
-                <i class="fa-solid fa-inbox"></i>
-                Recibidos
-                <span class="badge text-bg-info position-absolute end-0 me-5">4</span>
-            </a>
-
-            <a class="list-group-item text-star" id="list-pendientes-list" data-bs-toggle="list" href="#list-pendientes" role="tab" aria-controls="list-pendientes">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                Pendientes
-                <span class="badge colorYellow text-dark position-absolute end-0 me-5">4</span>
-            </a>
-
-            <a class="list-group-item text-star" id="list-enviados-list" data-bs-toggle="list" href="#list-enviados" role="tab" aria-controls="list-enviados">
-                <i class="fa-regular fa-paper-plane"></i>
-                Enviados
-                <span class="badge colorGreen text-dark position-absolute end-0 me-5">4</span>
-            </a>
-
-            <a class="list-group-item text-star" id="list-aprobados-list" data-bs-toggle="list" href="#list-aprobados" role="tab" aria-controls="list-aprobados">
-                <i class="fa-solid fa-envelope-circle-check"></i>
-                Aprobados
-                <span class="badge colorBlue text-dark position-absolute end-0 me-5">4</span>
-            </a>
-
-            <a class="list-group-item text-star" id="list-importantes-list" data-bs-toggle="list" href="#list-importantes" role="tab" aria-controls="list-importantes">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                Importantes
-                <span class="badge colorRed text-dark position-absolute end-0 me-5">4</span>
-            </a>
-        </div>
-    </div>
-
-
-    <div id="page-content-wrapper" class="container">
-
-        <div class="">
-            <div class="col col-12 tab-content" id="nav-tabContent">
-                <table class="tab-pane fade show table border border-3 text-center" id="list-recibidos" role="tabpanel" aria-labelledby="list-recibidos-list">
-                    <thead>
-                        <tr>
-                            <th scope="col">Prioridad Doc.</th>
+        </p>
+        <div class="container-fluid">
+            <div class="tab-content tab-pane show active w-100" id="list-recibidos" role="tabpanel" aria-labelledby="list-recibidos-list">
+                <table class="table border border-3 text-start">
+                    <thead class="col col-auto">
+                        <tr class="col col-auto">
+                            <th scope="col" class="">Prioridad Doc.</th>
                             <th scope="col">Asunto Doc.</th>
                             <th scope="col">Comentario Doc.</th>
                             <th scope="col">N° de Folio.</th>
@@ -86,7 +135,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </td>
                         </tr>
                         <tr>
-                            <td>Ordinario <i class="fa-solid fa-envelope"></i></td>
+                            <td>Ordinario <i class="fa-solid fa-envelope ps-2"></i></td>
                             <th>Gestion Horas</th>
                             <td>Gestionar Horas Extras..</td>
                             <td>2022-001</td>
@@ -97,18 +146,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </td>
                         </tr>
                         <tr>
-                            <td>Privado <i class="fa-solid fa-lock"></i></td>
-                            <th>Gestion Horas</th>
-                            <td>Gestionar Horas Extras..</td>
-                            <td>2022-001</td>
-                            <td>Pendiente</td>
-                            <td>
-                                <a href="" class="fa-regular fa-eye text-decoration-none text-dark">
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Importante <i class="fa-solid fa-circle-exclamation" style="color: red;"></i></td>
+                            <td>Privado <i class="fa-solid fa-lock ps-4"></i></td>
                             <th>Gestion Horas</th>
                             <td>Gestionar Horas Extras..</td>
                             <td>2022-001</td>
@@ -140,166 +178,121 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 </a>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
-
-                <table class="tab-pane fade show table w-100 border border-3" id="list-pendientes" role="tabpanel" aria-labelledby="list-pendientes-list">
-                    <thead>
                         <tr>
-                            <th scope="col">Color</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Turtle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">Blue</th>
-                            <td>Leonardo</td>
-                            <td>da Vinci</td>
-                            <td>Leo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Red</th>
-                            <td>Raffaello</td>
-                            <td>Sanzio da Urbino</td>
-                            <td>Raph</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Purple</th>
-                            <td>Donato</td>
-                            <td>di Niccolò di Betto Bardi</td>
-                            <td>Donnie</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Orange</th>
-                            <td>Michelangelo</td>
-                            <td>di Lodovico Buonarroti Simoni</td>
-                            <td>Mikey</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table class="tab-pane fade show table w-100 border border-3" id="list-enviados" role="tabpanel" aria-labelledby="list-enviados-list">
-                    <thead>
-                        <tr>
-                            <th scope="col">Color</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Turtle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">Blue</th>
-                            <td>Leonardo</td>
-                            <td>da Vinci</td>
-                            <td>Leo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Red</th>
-                            <td>Raffaello</td>
-                            <td>Sanzio da Urbino</td>
-                            <td>Raph</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Purple</th>
-                            <td>Donato</td>
-                            <td>di Niccolò di Betto Bardi</td>
-                            <td>Donnie</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Orange</th>
-                            <td>Michelangelo</td>
-                            <td>di Lodovico Buonarroti Simoni</td>
-                            <td>Mikey</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table class="tab-pane fade show table w-100 border border-3" id="list-aprobados" role="tabpanel" aria-labelledby="list-aprobados-list">
-                    <thead>
-                        <tr>
-                            <th scope="col">Color</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Turtle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">Blue</th>
-                            <td>Leonardo</td>
-                            <td>da Vinci</td>
-                            <td>Leo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Red</th>
-                            <td>Raffaello</td>
-                            <td>Sanzio da Urbino</td>
-                            <td>Raph</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Purple</th>
-                            <td>Donato</td>
-                            <td>di Niccolò di Betto Bardi</td>
-                            <td>Donnie</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Orange</th>
-                            <td>Michelangelo</td>
-                            <td>di Lodovico Buonarroti Simoni</td>
-                            <td>Mikey</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table class="tab-pane fade show table w-100 border border-3" id="list-importantes" role="tabpanel" aria-labelledby="list-importantes-list">
-                    <thead>
-                        <tr>
-                            <th scope="col">Color</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Turtle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">Blue</th>
-                            <td>Leonardo</td>
-                            <td>da Vinci</td>
-                            <td>Leo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Red</th>
-                            <td>Raffaello</td>
-                            <td>Sanzio da Urbino</td>
-                            <td>Raph</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Purple</th>
-                            <td>Donato</td>
-                            <td>di Niccolò di Betto Bardi</td>
-                            <td>Donnie</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Orange</th>
-                            <td>Michelangelo</td>
-                            <td>di Lodovico Buonarroti Simoni</td>
-                            <td>Mikey</td>
+                            <td>Importante <i class="fa-solid fa-circle-exclamation" style="color: red;"></i></td>
+                            <th>Gestion Horas</th>
+                            <td>Gestionar Horas Extras..</td>
+                            <td>2022-001</td>
+                            <td>Pendiente</td>
+                            <td>
+                                <a href="" class="fa-regular fa-eye text-decoration-none text-dark">
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
     </div>
 </div>
 
 
+<!--MODAL -->
+<div class="modal fade" id="crearModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Crear Documento</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form class="row g-3 d-flex justify-content-center">
+                    <div class="col-10">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Dirigido a:</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Buscar Usuarios...">
+                        </div>
+                        <!--INSERTAR WEB COMPONENT -->
+                    </div>
+                    <hr class="border border-1" />
+
+                    <div class="col-5">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Asunto</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Ej: Horas extras..">
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">N° Folio</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Ej: 2022-001...">
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <div class="col-10">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Tipo de Documento</option>
+                                <option value="1">Privado</option>
+                                <option value="2">Ordinario</option>
+                                <option value="3">Importante</option>
+                            </select>
+                        </div>
+                    </div>
 
 
+                    <div class="col-10">
+                        <div class="input-group">
+                            <span class="input-group-text">Comentario</span>
+                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                        </div>
+                    </div>
+                    <hr class="border border-1" />
+                    <div class="col-md-10">
+                        <div class="mb-3">
+                            <input class="form-control" type="file" id="formFile">
+                            <br />
+                            <p class="text-center">
+                                <i class="fa-solid fa-arrow-up"></i>
+                                Seleccione Documentos para Agregar
+                                <i class="fa-solid fa-arrow-up"></i>
+                            </p>
+                        </div>
+                    </div>
 
+                    <div class="col-12 d-flex justify-content-center">
+                        <div class="col-10 mb-5">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Nombre Adjunto
+                                        </th>
+                                        <th class="text-start">
+                                            Acción
+                                        </th>
+                                    </tr>
 
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>archivo.txt</th>
+                                        <td class="text-start">
+                                            <a href="" class="text-decoration-none nav-item text-black">
+                                                <i class="fa-solid fa-ban"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
 
-<!--DATA TABLE CENTRO DINÁMICO-->
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Guardar y Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
