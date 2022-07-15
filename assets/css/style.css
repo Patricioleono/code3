@@ -27,13 +27,13 @@ a .text-center,
     color: #ffffff !important;
 }
 
-/*MODIFICA BACKGROUND  DEL COLOR DATA-TABLE*/
-table .active,
+/*MODIFICA BACKGROUND  DEL COLOR DATA-TABLE
+table
 .show {
     background-color: #ffffffa1 !important;
     color: black !important;
 }
-
+*/
 /*BOTÓN MENU LATERAL*/
 
 .lateral {

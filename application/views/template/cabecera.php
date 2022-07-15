@@ -11,47 +11,90 @@
     <link href="<?= base_url('assets/css/style.css') ?>" rel="stylesheet" type="text/css">
     <link href="<?= base_url('assets/css/sidebarBoton.css') ?>" rel="stylesheet" type="text/css">
     <link href="<?= base_url('assets/css/sidebar.css') ?>" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/componentes/selector-webcomponent/v1/selector-webcomponent.bundle.js"></script>
     <title>N°recibidos-usuario</title>
 </head>
 
 <body>
-    <!--CONTENEDOR SIDEBAR & DATA-TABLE -->
+    <?=$usuario;?>
+   <?php echo $_SESSION['cabcodigo']; ?>
+    <nav class="navbar navbar-expand-md text-white custom border-bottom">
+        <div class="container-fluid">
 
-    <div class="d-flex w-100" id="wrapper">
-        <!--SIDEBAR-->
-        <div class="border-end bg-white" id="sidebar-wrapper">
-            <div class="sidebar-heading border-bottom bg-light">
-                <!--DISPARADOR MODAL-->
-                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#crearModal">
-                    <i class="fa-solid fa-file-circle-plus"></i>
-                    Crear Documento
-                </button>
+            <div class="collapse navbar-collapse row" id="navbarSupportedContent">
+                <ul class="navbar-nav mt-2">
+                    <li class="nav-item col">
+                        <a class="navbar-brand text-white" href="#">
+                            <i class="far fa-folder p-1"></i>
+                            Seguimiento de Documentación
+                        </a>
+                    </li>
 
-                <button type="button" class="btn-close position-absolute start-10 buttonX" id="sidebarToggle" aria-label="Close"></button>
+                    <!--BÚSQUEDA-->
+                    <li class="nav-item dropdown input-group col">
+                        <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <input type="text" class="form-control text-center" placeholder="Buscar Documentos" aria-label="Buscar Documentos" aria-describedby="addon-wrapping">
+                        <button class="input-group-text" id="dropDownFiltro" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+
+                        <div class="dropdown-menu dropdown-menu col-12" aria-labelledby="navbarDropdown">
+                            <div class="input-group mb-3 ps-2 pe-2">
+                                <span class="input-group-text" id="basic-addon3">Emisor/De:</span>
+                                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                            </div>
+                            <div class="input-group mb-3 ps-2 pe-2">
+                                <span class="input-group-text" id="basic-addon3">Receptor/Para:</span>
+                                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                            </div>
+                            <div class="input-group mb-3 ps-2 pe-2">
+                                <span class="input-group-text" id="basic-addon3">Asunto</span>
+                                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                            </div>
+                            <div class="pe-2 ps-2">
+                                <select class="form-select mb-3 text-center" aria-label="Default select example">
+                                    <option selected>Seleccione Estado de Documento</option>
+                                    <option value="1">Recibido</option>
+                                    <option value="2">Pendiente</option>
+                                    <option value="3">Aprobado</option>
+                                </select>
+
+                            </div>
+                            <div class="input-group mb-3 ps-2 pe-2">
+                                <span class="input-group-text" id="basic-addon3">Buscar Desde</span>
+                                <input type="date" class="form-control" id="fecha1" aria-describedby="basic-addon3">
+                                <span class="input-group-text" id="basic-addon3">Hasta</span>
+                                <input type="date" class="form-control" id="fecha2" aria-describedby="basic-addon3">
+                            </div>
+                            <hr class="dropdown-divider">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" type="submit">Buscar</button>
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <!--USUARIO-->
+                    <li class="nav-item dropdown text-end col">
+
+                        <a class="btn btn-outline-light dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuario <i class="fa-regular fa-circle-user"></i>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#!">
+                                Cerrar Session
+                                <i class="fa-regular fa-rectangle-xmark ps-1 ms-4"></i>
+                            </a>
+                            <a class="dropdown-item" href="#!">
+                                Volver al Intranet
+                                <i class="fa-solid fa-arrow-rotate-left ms-2"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <!--ITEM-->
-            <div class="list-group list-group-flush" id="list-tab" role="tablist">
-                <a class="list-group-item" data-bs-toggle="list" href="#list-recibidos">
-                    <i class="fa-solid fa-inbox"></i>
-                    Recibidos
-                    <span class="badge text-bg-info position-absolute end-0 me-5">4</span>
-                </a>
-                <a class="list-group-item text-star" id="list-enviados-list" data-bs-toggle="list" href="#list-enviados" role="tab" aria-controls="list-enviados">
-                    <i class="fa-regular fa-paper-plane"></i>
-                    Enviados
-                    <span class="badge colorGreen text-dark position-absolute end-0 me-5">4</span>
-                </a>
 
-                <a class="list-group-item text-star" id="list-aprobados-list" data-bs-toggle="list" href="#list-aprobados" role="tab" aria-controls="list-aprobados">
-                    <i class="fa-solid fa-envelope-circle-check"></i>
-                    Aprobados
-                    <span class="badge colorBlue text-dark position-absolute end-0 me-5">4</span>
-                </a>
 
-                <a class="list-group-item text-star" id="list-importantes-list" data-bs-toggle="list" href="#list-importantes" role="tab" aria-controls="list-importantes">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    Importantes
-                    <span class="badge colorRed text-dark position-absolute end-0 me-5">4</span>
-                </a>
-            </div>
         </div>
+    </nav>

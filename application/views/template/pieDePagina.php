@@ -5,13 +5,20 @@
 <script src="<?= base_url('assets/js/main.js'); ?>"></script>
 
 <script>
-    $("#sidebarToggle2").click( () => {
+    $("#sidebarToggle2").click(() => {
         $('#hidden').hide();
     });
 
     $("#sidebarToggle").click(() => {
         $('#hidden').show();
-    } )    
+    })
+
+
+
+    //SELECTOR
+    const selectorpersonas = $('selector-webcomponent[name=selectorpersonas]');
+    let v = selectorpersonas[0].getValue();
+    console.log(v);
 </script>
 </body>
 
