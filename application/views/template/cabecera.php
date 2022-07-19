@@ -16,8 +16,15 @@
 </head>
 
 <body>
-    <?=$usuario;?>
-   <?php echo $_SESSION['cabcodigo']; ?>
+    <!--
+<pre>
+<?php
+foreach ($prueba as $row){
+    echo "<td>".$row['estado']."</td> <br />";
+}
+?>
+</pre>
+-->
     <nav class="navbar navbar-expand-md text-white custom border-bottom">
         <div class="container-fluid">
 
@@ -78,15 +85,15 @@
                     <li class="nav-item dropdown text-end col">
 
                         <a class="btn btn-outline-light dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Usuario <i class="fa-regular fa-circle-user"></i>
+                            <?=$_SESSION['cabnombre']  ." ". $_SESSION['cabapellido']; ?> <i class="fa-regular fa-circle-user"></i>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#!">
+                            <a class="dropdown-item" href="">
                                 Cerrar Session
                                 <i class="fa-regular fa-rectangle-xmark ps-1 ms-4"></i>
                             </a>
-                            <a class="dropdown-item" href="#!">
+                            <a class="dropdown-item" href="http://intranet/">
                                 Volver al Intranet
                                 <i class="fa-solid fa-arrow-rotate-left ms-2"></i>
                             </a>

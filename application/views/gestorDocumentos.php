@@ -73,7 +73,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <th>Gestión Horas</th>
                                 <td>Gestionar Horas Extras..</td>
                                 <td>2022-001</td>
-                                <td>Pendiente</td>
+                                <td></td>
                                 <td>
                                     <a href="" class="fa-regular fa-eye text-decoration-none text-dark">
                                     </a>
@@ -166,15 +166,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <form class="row g-3 d-flex justify-content-center">
                         <div class="col-10">
                             <div class="input-group mb-3">
-                                <selectorprestaciones-component>
-                                    <selector-webcomponent name="selectorpersonas" url="http://10.5.225.24/api/index.php/SelectorWebComponent/lists" cat="personas" list="true" token="" confirmDelete="true" allowDuplicates="false">
-
-
+                                <selectorprestaciones-component class="w-100">
+                                    <div class="text-center mb-1">Dirigido a: <i class="fa-solid fa-user-plus"></i></div>
+                                    <selector-webcomponent name="selectorpersonas" url="http://10.5.225.24/api/index.php/SelectorWebComponent/lists" cat="personas" list="true" token="<?= $usuario; ?>" confirmDelete="true" allowDuplicates="false" placeholder="Agregar Usuarios..">
+                                    
 
                                     </selector-webcomponent>
                                 </selectorprestaciones-component>
                             </div>
-                            <!--INSERTAR WEB COMPONENT -->
                         </div>
 
 
