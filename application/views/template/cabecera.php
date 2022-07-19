@@ -12,6 +12,8 @@
     <link href="<?= base_url('assets/css/sidebarBoton.css') ?>" rel="stylesheet" type="text/css">
     <link href="<?= base_url('assets/css/sidebar.css') ?>" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="/componentes/selector-webcomponent/v1/selector-webcomponent.bundle.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
     <title>N°recibidos-usuario</title>
 </head>
 
@@ -19,8 +21,8 @@
     <!--
 <pre>
 <?php
-foreach ($prueba as $row){
-    echo "<td>".$row['estado']."</td> <br />";
+foreach ($prueba as $row) {
+    echo "<td>" . $row['estado'] . "</td> <br />";
 }
 ?>
 </pre>
@@ -85,7 +87,7 @@ foreach ($prueba as $row){
                     <li class="nav-item dropdown text-end col">
 
                         <a class="btn btn-outline-light dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <?=$_SESSION['cabnombre']  ." ". $_SESSION['cabapellido']; ?> <i class="fa-regular fa-circle-user"></i>
+                            <?= $_SESSION['cabnombre']  . " " . $_SESSION['cabapellido']; ?> <i class="fa-regular fa-circle-user"></i>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

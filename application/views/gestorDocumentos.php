@@ -56,7 +56,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             </p>
             <div class="container-fluid">
                 <div class="tab-content tab-pane show w-100" id="list-recibidos" role="tabpanel" aria-labelledby="list-recibidos-list">
-                    <table class="table border border-3 text-start">
+                    <table class="table border border-1 text-start display" id="data_table" style="width: 100%;">
                         <thead class="col col-auto">
                             <tr class="col col-auto">
                                 <th scope="col" class="">Prioridad Doc.</th>
@@ -147,6 +147,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </tr>
                         </tbody>
                     </table>
+                  
                 </div>
             </div>
         </div>
