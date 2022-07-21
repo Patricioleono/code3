@@ -147,7 +147,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </tr>
                         </tbody>
                     </table>
-                  
+
                 </div>
             </div>
         </div>
@@ -164,88 +164,96 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </div>
                 <div class="modal-body">
 
-                    <form class="row g-3 d-flex justify-content-center">
+                    <form class="row g-3 d-flex justify-content-center" method="post">
                         <div class="col-10">
                             <div class="input-group mb-3">
                                 <selectorprestaciones-component class="w-100">
                                     <div class="text-center mb-1">Dirigido a: <i class="fa-solid fa-user-plus"></i></div>
-                                    <selector-webcomponent name="selectorpersonas" url="http://10.5.225.24/api/index.php/SelectorWebComponent/lists" cat="personas" list="true" token="<?= $usuario; ?>" confirmDelete="true" allowDuplicates="false" placeholder="Agregar Usuarios..">
-                                    
+                                    <selector-webcomponent name="selectorpersonas" url="http://10.5.225.24/api/index.php/SelectorWebComponent/lists" cat="personas" list="true" token="<?= $usuario; ?>" confirmDelete="true" allowDuplicates="false" placeholder="Agregar Usuarios.." id="selectorUser">
+
 
                                     </selector-webcomponent>
                                 </selectorprestaciones-component>
                             </div>
                         </div>
-
-
                         <hr class="border border-1" />
-
                         <div class="col-5">
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-3" id="pruebaSelector">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Asunto</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Ej: Horas extras..">
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Ej: Horas extras.." id="asunto">
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">N° Folio</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Ej: 2022-001...">
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Ej: 2022-001..." id="folio">
                             </div>
                         </div>
                         <div class="col-12 d-flex justify-content-center">
                             <div class="col-10">
-                                <select class="form-select" aria-label="Default select example">
+                                <select id="select" class="form-select" aria-label="Default select example">
                                     <option selected>Tipo de Documento</option>
-                                    <option value="1">Privado</option>
-                                    <option value="2">Ordinario</option>
-                                    <option value="3">Importante</option>
+                                    <option value="privado">Privado</option>
+                                    <option value="ordinario">Ordinario</option>
+                                    <option value="importante">Importante</option>
                                 </select>
                             </div>
                         </div>
 
-
                         <div class="col-10">
                             <div class="input-group">
                                 <span class="input-group-text">Comentario</span>
-                                <textarea class="form-control" aria-label="With textarea"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" id="comentario"></textarea>
                             </div>
                         </div>
+
                         <hr class="border border-1" />
                         <div class="col-md-10">
                             <div class="mb-3">
-                                <input class="form-control" type="file" id="formFile">
+                                <div class="mb-3 d-flex justify-content-between">
+                                    <div class="form-check ms-4">
+                                        <input class="form-check-input" type="radio" name="undoc" id="unDoc">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Adjuntar Solo un Documento
+                                        </label>
+                                    </div>
+                                    <div class="form-check me-4">
+                                        <input class="form-check-input" type="radio" name="variosdoc" id="variosDoc">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Adjuntar Varios Documentos
+                                        </label>
+                                    </div>
+                                </div>
+                                <!--Solo un doc-->
                                 <br />
-                                <p class="text-center">
-                                    <i class="fa-solid fa-arrow-up"></i>
-                                    Seleccione Documentos para Agregar
-                                    <i class="fa-solid fa-arrow-up"></i>
-                                </p>
+                                <div class="mb-3 d-none" id="unDocumento">
+                                    <input class="form-control" type="file" id="fileInput" name="fileinput">
+                                </div>
+
+                                <!--Varios doc-->
+                                <div class="dropFiles d-none" id="dropFiles">
+                                    <br />
+                                    Arrastrar Aquí los Documentos <i class="fa-solid fa-file-medical"></i>
+                                </div>
+                                <br />
                             </div>
                         </div>
 
                         <div class="col-12 d-flex justify-content-center">
                             <div class="col-10 mb-5">
-                                <table class="table table-hover">
+                                <table class="table">
                                     <thead>
                                         <tr>
                                             <th>
                                                 Nombre Adjunto
                                             </th>
-                                            <th class="text-start">
-                                                Acción
+                                            <th>
+                                                Eliminar Adjunto
                                             </th>
                                         </tr>
-
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>archivo.txt</th>
-                                            <td class="text-start">
-                                                <a href="" class="text-decoration-none nav-item text-black">
-                                                    <i class="fa-solid fa-ban"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                    <tbody id="nombreDoc">
+
                                     </tbody>
                                 </table>
                             </div>
@@ -254,7 +262,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary">Guardar y Enviar</button>
+                    <button type="submit" id="btnAjax" class="btn btn-primary">Guardar y Enviar</button>
                 </div>
             </div>
         </div>

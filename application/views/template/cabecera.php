@@ -14,16 +14,14 @@
     <script type="text/javascript" src="/componentes/selector-webcomponent/v1/selector-webcomponent.bundle.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
 
-    <title>N°recibidos-usuario</title>
+    <title>N°recibidos <?= $_SESSION['cabnombre']." ".$_SESSION['cabapellido'];?></title>
 </head>
 
 <body>
-    <!--
+<!--
 <pre>
 <?php
-foreach ($prueba as $row) {
-    echo "<td>" . $row['estado'] . "</td> <br />";
-}
+var_dump($_SESSION);
 ?>
 </pre>
 -->
@@ -91,7 +89,7 @@ foreach ($prueba as $row) {
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="">
+                            <a class="dropdown-item" href="<?= site_url('application/view/salir');?>">
                                 Cerrar Session
                                 <i class="fa-regular fa-rectangle-xmark ps-1 ms-4"></i>
                             </a>

@@ -6,20 +6,10 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-
-
+<script src="<?= base_url('assets/js/ajax.js'); ?>"></script>
 <script src="<?= base_url('assets/js/main.js'); ?>"></script>
 
 <script>
-    $("#sidebarToggle2").click(() => {
-        $('#hidden').hide();
-    });
-
-    $("#sidebarToggle").click(() => {
-        $('#hidden').show();
-    })
-
-
     $(document).ready(() => {
         $('#data_table').DataTable({
             scrollY: '50vh',
@@ -44,11 +34,29 @@
                 }
             }
         });
+        $("#sidebarToggle2").click(() => {
+            $('#hidden').hide();
+        });
+
+        $("#sidebarToggle").click(() => {
+            $('#hidden').show();
+        });
+
+
+        $('input[name=undoc]').click(function() {
+            $('#unDocumento').removeClass('d-none');
+            $('input[type=radio][name=variosdoc]').prop('checked', false);
+            $('#dropFiles').addClass('d-none');
+           
+        });
+
+        $('input[name=variosdoc]').click(function() {
+            $('#dropFiles').removeClass('d-none');
+            $('input[type=radio][name=undoc]').prop('checked', false);
+            $('#unDocumento').addClass('d-none');
+        });
+
     });
-    //SELECTOR
-    const selectorpersonas = $('selector-webcomponent[name=selectorpersonas]');
-    let v = selectorpersonas[0].getValue();
-    console.log(v);
 </script>
 </body>
 
