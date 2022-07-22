@@ -156,7 +156,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <!--MODAL -->
     <div class="modal fade" id="crearModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Crear Documento</h5>
@@ -164,7 +164,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </div>
                 <div class="modal-body">
 
-                    <form class="row g-3 d-flex justify-content-center" method="post">
+                    <form class="row g-3 d-flex justify-content-center" method="post" enctype="multipart/form-data" id="formAjax">
                         <div class="col-10">
                             <div class="input-group mb-3">
                                 <selectorprestaciones-component class="w-100">
@@ -178,15 +178,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         </div>
                         <hr class="border border-1" />
                         <div class="col-5">
-                            <div class="input-group mb-3" id="pruebaSelector">
+                            <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Asunto</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Ej: Horas extras.." id="asunto">
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Ej: Horas extras.." id="asunto" name="asunto">
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">N° Folio</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Ej: 2022-001..." id="folio">
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Ej: 2022-001..." id="folio" name="folio">
                             </div>
                         </div>
                         <div class="col-12 d-flex justify-content-center">
@@ -203,7 +203,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <div class="col-10">
                             <div class="input-group">
                                 <span class="input-group-text">Comentario</span>
-                                <textarea class="form-control" aria-label="With textarea" id="comentario"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" id="comentario" name="comentario"></textarea>
                             </div>
                         </div>
 
@@ -231,7 +231,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 </div>
 
                                 <!--Varios doc-->
-                                <div class="dropFiles d-none" id="dropFiles">
+                                <div class="dropFiles d-none" id="dropFiles" name="variosInput">
                                     <br />
                                     Arrastrar Aquí los Documentos <i class="fa-solid fa-file-medical"></i>
                                 </div>

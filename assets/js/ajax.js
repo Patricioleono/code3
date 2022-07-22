@@ -1,31 +1,5 @@
 $(document).ready(() => {
 
-  $('#btnAjax').click(() => {
-    const selector = document.querySelector('selector-webcomponent');
-    var datos = selector.getList();
-    //console.log(datos);
-
-    //OBTENER DATOS LISTA DE USUARIOS SOLO ID Y NOMBRE
-    let imprimirDatos = datos.map((datos) => {
-      let imprimir = [];
-      let valor = datos.value;
-      let label = datos.label;
-
-      imprimir.push(valor, label);
-
-      return imprimir;
-    });
-
-    var asunto = $("#asunto").val();
-    var folio = $("#folio").val();
-    var tipoDoc = $("#select").val();
-    var comentario = $("#comentario").val();
-    //var adjunto
-    console.log(asunto, folio, tipoDoc, comentario, imprimirDatos);
-
-
-  });
-
   $("#dropFiles").on('dragenter', function (ev) {
     //area del drop
     $("#dropFiles").addClass("highlightDropArea");
@@ -70,6 +44,54 @@ $(document).ready(() => {
     $('.delete').off().click(function (e) {
       $(this).parent('td').parent('tr').remove();
     });
+  });
+
+  $('#btnAjax').click(() => {
+
+    const selector = document.querySelector('selector-webcomponent');
+    var datos = selector.getList();
+    //console.log(datos);
+
+    //OBTENER DATOS LISTA DE USUARIOS SOLO ID Y NOMBRE
+    let imprimirDatos = datos.map((datos) => {
+      let imprimir = [];
+      let valor = datos.value;
+      let label = datos.label;
+
+      imprimir.push(valor, label);
+
+      return imprimir;
+    });
+    var asunto = $("#asunto").val();
+    var folio = $("#folio").val();
+    var tipoDoc = $("#select").val();
+    var comentario = $("#comentario").val();
+    var unAdjunto = $('#fileInput');
+
+    $.ajax({
+      method: "POST",
+      url: "<?php echo base_url(); ?>" + "Documentos/tratarDatos",
+      dataType: 'json',
+      data: {
+        asunto: asunto,
+        folio: folio,
+        tipoDoc: tipoDoc,
+        comentario: comentario,
+        unAdjunto: unAdjunto
+      },
+      success: function (res) {
+        if (res) {
+          console.log(res);
+        }
+      }
+    });
+
+
+
+
+    //var datos = [];
+    //datos.push(asunto, folio, tipoDoc, comentario, imprimirDatos, unAdjunto);
+    //console.log(datos);
   });
 
 });

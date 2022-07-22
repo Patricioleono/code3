@@ -7,9 +7,10 @@ class Inicio extends CI_Controller
 	{
 
 		parent::__construct();
-		$this->load->model('Documentos_modelo');
+		
 		$this->load->database();
-
+		$this->load->helper('url');
+		$this->load->library('session');
 	}
 
 
@@ -17,14 +18,12 @@ class Inicio extends CI_Controller
 	{
 		$validar = false;
 		$validar = $this->validar_usuario();
-		
 
 		if ($validar) {
 			$user = $_SESSION['cabcodigo'];
-
+			
 			$data = array(
-				"usuario" => $this->generarTokenUsuario($user),
-				"prueba" => $this->Documentos_modelo->get_datos()
+				"usuario" => $this->generarTokenUsuario($user)
 			);
 
 			$this->load->view('template/cabecera', $data);
@@ -35,20 +34,22 @@ class Inicio extends CI_Controller
 		}
 	}
 	public function salir()
-	{
+	{	
+		$this->load->helper('url');
 		$this->load->view('salir');
 	}
 
 	public function validar_usuario()
 	{
-		if (isset($_SESSION['cabcodigo'])) {
+		$sesion = $this->session->cabcodigo;
+		if (isset($sesion)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	//GENERAR TOKEN SEGÚN USER ID INICIADO SESSION
+	//GENERAR TOKEN
 	private function generarTokenUsuario($idUsuario)
 	{
 		$url = 'http://10.5.225.24/api/index.php/auth/generarTokenUsuario/' . $idUsuario;

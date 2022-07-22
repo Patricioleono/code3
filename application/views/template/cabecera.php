@@ -18,6 +18,7 @@
 </head>
 
 <body>
+
 <!--
 <pre>
 <?php
@@ -25,6 +26,7 @@ var_dump($_SESSION);
 ?>
 </pre>
 -->
+
     <nav class="navbar navbar-expand-md text-white custom border-bottom">
         <div class="container-fluid">
 
@@ -89,7 +91,7 @@ var_dump($_SESSION);
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="<?= site_url('application/view/salir');?>">
+                            <a class="dropdown-item" href="<?= site_url();?>">
                                 Cerrar Session
                                 <i class="fa-regular fa-rectangle-xmark ps-1 ms-4"></i>
                             </a>
