@@ -20,4 +20,6 @@ window.addEventListener('DOMContentLoaded', event => {
     triggerButton(sidebarToggle);
     triggerButton(sidebarToggle2);
 
+
 });
+

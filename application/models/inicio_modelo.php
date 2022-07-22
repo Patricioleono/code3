@@ -2,14 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class inicioSession_model extends CI_Model {
+class inicio_modelo extends CI_Model {
 
     public function __construct()
     {
+        parent::__construct();
         $this->load->database();
     }
-
-    //CONEXIÓN PHP_SAM
+    
+    //CONEXIÓN INFORMIX
     public function conectarOdbc(){
         $odbc = "PHP_SAM";
         $user = "ssmsa";
@@ -17,4 +18,5 @@ class inicioSession_model extends CI_Model {
         
         return odbc_pconnect($odbc, $user, $pass);
     }
+
 }

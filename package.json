@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@kanety/jquery-simple-upload": "^0.4.0"
+  }
+}

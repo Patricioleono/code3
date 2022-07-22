@@ -1,0 +1,10 @@
+{
+    "git.ignoreLimitWarning": true,
+    "editor.accessibilityPageSize": 16,
+    "editor.fontSize": 16,
+    "editor.minimap.size": "proportional",
+    "window.zoomLevel": 0,
+    "editor.suggestFontSize": 16,
+    "editor.lineHeight": 0,
+    "timeline.pageSize": null
+}
