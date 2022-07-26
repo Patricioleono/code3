@@ -1,8 +1,4 @@
-<?php
-
-use function PHPSTORM_META\map;
-
-defined('BASEPATH') or exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 class Documentos extends CI_Controller
 {
@@ -11,7 +7,6 @@ class Documentos extends CI_Controller
         parent::__construct();
         $this->load->database();
         $this->load->model('Documentos_modelo');
-       
     }
 
     public function index()
@@ -21,7 +16,7 @@ class Documentos extends CI_Controller
 
         if ($validar) {
 
-           
+
 
             $this->load->view('template/cabecera');
             $this->load->view('gestorDocumentos');
@@ -30,39 +25,44 @@ class Documentos extends CI_Controller
             $this->salir();
         }
     }
-    public function tratarDatos(){
-         //libreria funcionamiento datos
-         $estado = "";
-         $msg = "";
+    public function soloAjax(){
+       var_dump($_POST);
+       var_dump($_FILES);
+    }
+    public function tratarDatos()
+    {
+        $archivos = array();
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png|pdf|doc|docx';
+        $cpt = count($_FILES);
+        for ($i = 0; $i < $cpt; $i++) {
 
-        $config['upload_path'] = '<?= base_url();?>'+'uploads';
-        $config['allowed_types'] = 'gif|jpeg|jpg|rar|zip|doc|docx|pdf|txt';
-        $config['max_size'] = 1024 * 5;
-        $config['encrypt_name'] = TRUE;
-        $this->load->library('upload', $config);
+            $this->load->library('uploads', $config);
+            $this->upload->initialize($config);
 
-        $data = array(
-            'asunto' => $this->input->post('asunto'),
-            'folio' => $this->input->post('folio'),
-            'tipoDoc' => $this->input->post('tipoDoc'),
-            'comentario' => $this->input->post('comentario'),
-            'unAdjunto' => $this->input->post('unAdjunto')
-        );
-        $documento = $data['unAdjunto'];
+            $name_file = $_FILES['archivo']['name'][$i];
+            $name_file = preg_replace('/([^.a-z0-9]+)/i', '_', $name_file);
+            $_FILES['archivo2'] = array();
+            $_FILES['archivo2']['name'] = $name_file;
+            $_FILES['archivo2']['type'] = $_FILES['archivo']['type'][$i];
+            $_FILES['archivo2']['tmp_name'] = $_FILES['archivo']['tmp_name'][$i];
+            $_FILES['archivo2']['error'] = $_FILES['archivo']['error'][$i];
+            $_FILES['archivo2']['size'] = $_FILES['archivo']['size'][$i];
 
-        if(!$this->upload->do_upload($documento)){
-                $status = 'error';
-                $msg = $this->upload->display_errors('', '');
-        }else {
-            $data = $this->upload->data();
-            $status = "success";
-            $msg = "subido correctamente";
+            if (!$this->upload->do_upload('archivo2')) {
+                $error = array('error' => $this->upload->display_errors());
+                $ret['result'] = 0;
+                $ret['message'] = $error;
+            } else {
+                $upload_data = $this->upload->data();
+                array_push($archivos, array(
+                    "nombre" => $upload_data['file_name'],
+                    "tipo" => $upload_data['file_ext']
+                ));
+            }
+            $result =  json_encode($archivos);
         }
-        echo json_encode(array(
-            'status' => $status,
-            'msg' => $msg
-        ));
-
+        echo $result;
     }
 
     public function validar_usuario()

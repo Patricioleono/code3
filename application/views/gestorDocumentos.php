@@ -209,55 +209,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                         <hr class="border border-1" />
                         <div class="col-md-10">
-                            <div class="mb-3">
-                                <div class="mb-3 d-flex justify-content-between">
-                                    <div class="form-check ms-4">
-                                        <input class="form-check-input" type="radio" name="undoc" id="unDoc">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            Adjuntar Solo un Documento
-                                        </label>
-                                    </div>
-                                    <div class="form-check me-4">
-                                        <input class="form-check-input" type="radio" name="variosdoc" id="variosDoc">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            Adjuntar Varios Documentos
-                                        </label>
-                                    </div>
-                                </div>
-                                <!--Solo un doc-->
-                                <br />
-                                <div class="mb-3 d-none" id="unDocumento">
-                                    <input class="form-control" type="file" id="fileInput" name="fileinput">
-                                </div>
-
-                                <!--Varios doc-->
-                                <div class="dropFiles d-none" id="dropFiles" name="variosInput">
-                                    <br />
-                                    Arrastrar Aquí los Documentos <i class="fa-solid fa-file-medical"></i>
-                                </div>
-                                <br />
+                            <div class="file-loading">
+                                <input id="archivo" name="archivo" type="file" multiple>
                             </div>
                         </div>
 
-                        <div class="col-12 d-flex justify-content-center">
-                            <div class="col-10 mb-5">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                Nombre Adjunto
-                                            </th>
-                                            <th>
-                                                Eliminar Adjunto
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="nombreDoc">
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
                     </form>
 
                 </div>

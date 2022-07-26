@@ -6,6 +6,10 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/buffer.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/filetype.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/fileinput.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/locales/es.js"></script>
 <script src="<?= base_url('assets/js/ajax.js'); ?>"></script>
 <script src="<?= base_url('assets/js/main.js'); ?>"></script>
 
@@ -41,21 +45,21 @@
         $("#sidebarToggle").click(() => {
             $('#hidden').show();
         });
+        $("#archivo").fileinput({
+            language: 'es',
+            theme: "bs5",
+            uploadUrl: '<?php base_url();?>index.php/documentos/soloAjax',
+            uploadAsync: false,
+            allowedFileExtensions: ['jpg', 'png', 'gif', 'pdf', 'doc', 'docx'],
+            overwriteInitial: false,
+            initialPreviewAsData: true,
+            maxFileSize: 300000,
+            removeFromPreviewOnError: true,
+            showClose: false,
+            showPreview: false,
+            showUpload: false
 
-
-        $('input[name=undoc]').click(function() {
-            $('#unDocumento').removeClass('d-none');
-            $('input[type=radio][name=variosdoc]').prop('checked', false);
-            $('#dropFiles').addClass('d-none');
-           
         });
-
-        $('input[name=variosdoc]').click(function() {
-            $('#dropFiles').removeClass('d-none');
-            $('input[type=radio][name=undoc]').prop('checked', false);
-            $('#unDocumento').addClass('d-none');
-        });
-
     });
 </script>
 </body>

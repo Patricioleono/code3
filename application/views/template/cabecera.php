@@ -13,13 +13,17 @@
     <link href="<?= base_url('assets/css/sidebar.css') ?>" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="/componentes/selector-webcomponent/v1/selector-webcomponent.bundle.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>N°recibidos <?= $_SESSION['cabnombre']." ".$_SESSION['cabapellido'];?></title>
+    <title>N°recibidos <?= $_SESSION['cabnombre'] . " " . $_SESSION['cabapellido']; ?></title>
 </head>
 
 <body>
 
-<!--
+    <!--
 <pre>
 <?php
 var_dump($_SESSION);
@@ -91,7 +95,7 @@ var_dump($_SESSION);
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="<?= site_url();?>">
+                            <a class="dropdown-item" href="<?= site_url(); ?>">
                                 Cerrar Session
                                 <i class="fa-regular fa-rectangle-xmark ps-1 ms-4"></i>
                             </a>

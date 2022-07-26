@@ -53,7 +53,7 @@ $(document).ready(() => {
     //console.log(datos);
 
     //OBTENER DATOS LISTA DE USUARIOS SOLO ID Y NOMBRE
-    let imprimirDatos = datos.map((datos) => {
+    let userDatos = datos.map((datos) => {
       let imprimir = [];
       let valor = datos.value;
       let label = datos.label;
@@ -66,32 +66,58 @@ $(document).ready(() => {
     var folio = $("#folio").val();
     var tipoDoc = $("#select").val();
     var comentario = $("#comentario").val();
-    var unAdjunto = $('#fileInput');
 
+
+    var formData = new FormData();
+    var archivos = $('#archivo').fileinput('getFileList');
+
+    formData.append('archivos', archivos.files);
+    formData.append('asunto', asunto);
+    formData.append('folio', folio);
+    formData.append('tipoDoc', tipoDoc);
+    formData.append('comentario', comentario);
+    formData.append('userDatos', userDatos);
+
+    fetch( 'http://10.5.225.24/desarrollo_plo/gestorDocumentos/index.php/documentos/soloAjax', {
+      method: 'POST',
+      body: formData
+    })
+    .then( function(response) {
+      if(response.ok){
+        return response.text();
+      }else{
+        throw "error en la llamada";
+      }
+    })
+    .then( function (texto) {
+      console.log(texto);
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
+
+
+    /*
     $.ajax({
-      method: "POST",
-      url: "<?php echo base_url(); ?>" + "Documentos/tratarDatos",
-      dataType: 'json',
-      data: {
-        asunto: asunto,
-        folio: folio,
-        tipoDoc: tipoDoc,
-        comentario: comentario,
-        unAdjunto: unAdjunto
-      },
-      success: function (res) {
-        if (res) {
-          console.log(res);
-        }
+      url: "http://10.5.225.24/desarrollo_plo/gestorDocumentos/index.php/documentos/soloAjax",
+      type: 'post',
+      data: formData,
+      contentType: false,
+      precessData: false
+    }).done(function (res) {
+      console.log(res);
+    }).fail(function (e) {
+      if (e.responseJSON.descrip !== undefined) {
+        alert(e.responseJSON.descrip);
       }
     });
 
 
 
 
-    //var datos = [];
-    //datos.push(asunto, folio, tipoDoc, comentario, imprimirDatos, unAdjunto);
-    //console.log(datos);
+    var datos = [];
+    datos.push(asunto, folio, tipoDoc, comentario, imprimirDatos, unAdjunto);
+    console.log(datos);*/
   });
 
 });
