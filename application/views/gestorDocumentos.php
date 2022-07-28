@@ -210,7 +210,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <hr class="border border-1" />
                         <div class="col-md-10">
                             <div class="file-loading">
-                                <input id="archivo" name="archivo" type="file" multiple>
+                                <input id="file" name="file[]" type="file" multiple>
                             </div>
                         </div>
 

@@ -8,16 +8,30 @@ class Documentos_modelo extends CI_Model
     {
         parent::__construct();
         $this->load->database();
+        $this->load->helper('date');
     }
 
-    public function get_datos()
+    public function insertDocument($result)
     {
-        $result = array();
+        $data = array(
+            'nombreDoc' => $result['archivo'],
+            'fechaCreado' => date('Y-m-d H:i:s'),
+            'extension' => $result['extension']
+           
+        );
+  
+        $this->db->insert('documentos', $data);
+    }
 
-       $this->db->select('estado, tipo, folio, generadoFecha');
-       $q = $this->db->get('docs');
-       $result = $q->result_array();
-
-       return $result;
+   
+    public function formData($datosForm)
+    {
+        $data = array(
+            'asunto' => $datosForm['asunto'],
+            'numeroFolio' => $datosForm['folio'],
+            'tipoDoc' => $datosForm['tipoDoc'],
+            'comentario' => $datosForm['comentario']
+        );
+        $this->db->insert('documentos', $data);
     }
 }

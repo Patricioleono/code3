@@ -17,7 +17,6 @@ class Documentos extends CI_Controller
         if ($validar) {
 
 
-
             $this->load->view('template/cabecera');
             $this->load->view('gestorDocumentos');
             $this->load->view('template/pieDePagina');
@@ -25,44 +24,71 @@ class Documentos extends CI_Controller
             $this->salir();
         }
     }
-    public function soloAjax(){
-       var_dump($_POST);
-       var_dump($_FILES);
-    }
-    public function tratarDatos()
+    public function formAjax()
     {
-        $archivos = array();
+        $asunto = $this->input->post('asunto');
+        $folio = $this->input->post('folio');
+        $tipoDoc = $this->input->post('tipoDoc');
+        $comentario = $this->input->post('comentario');
+
+        $result = array(
+            'asunto' => $asunto,
+            'folio' =>  $folio,
+            'tipoDoc' => $tipoDoc,
+            'comentario' => $comentario
+        );
+    $this->Documentos_modelo->formData($result);
+
+        $cabecera = $_SESSION['cabcodigo'];
+        //RECORRER Y RETORNAR IDS
+        $userDatos = $this->input->post('userDatos');
+
+        for ($i = 0; $i < count($userDatos); $i++) {
+            $rescatarId = array();
+            array_push(
+                $rescatarId,
+                array(
+                    'userData' => $userDatos[$i][0],
+                    'cabecera' => $cabecera
+                )
+            );
+        }
+    }
+
+
+    public function tratarDoc()
+    {
+
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|pdf|doc|docx';
         $cpt = count($_FILES);
         for ($i = 0; $i < $cpt; $i++) {
 
-            $this->load->library('uploads', $config);
+            $this->load->library('upload', $config);
             $this->upload->initialize($config);
 
-            $name_file = $_FILES['archivo']['name'][$i];
+            $name_file = $_FILES['file']['name'][$i];
             $name_file = preg_replace('/([^.a-z0-9]+)/i', '_', $name_file);
-            $_FILES['archivo2'] = array();
-            $_FILES['archivo2']['name'] = $name_file;
-            $_FILES['archivo2']['type'] = $_FILES['archivo']['type'][$i];
-            $_FILES['archivo2']['tmp_name'] = $_FILES['archivo']['tmp_name'][$i];
-            $_FILES['archivo2']['error'] = $_FILES['archivo']['error'][$i];
-            $_FILES['archivo2']['size'] = $_FILES['archivo']['size'][$i];
+            $_FILES['file2'] = array();
+            $_FILES['file2']['name'] = $name_file;
+            $_FILES['file2']['type'] = $_FILES['file']['type'][$i];
+            $_FILES['file2']['tmp_name'] = $_FILES['file']['tmp_name'][$i];
+            $_FILES['file2']['error'] = $_FILES['file']['error'][$i];
+            $_FILES['file2']['size'] = $_FILES['file']['size'][$i];
 
-            if (!$this->upload->do_upload('archivo2')) {
+            if (!$this->upload->do_upload('file2')) {
                 $error = array('error' => $this->upload->display_errors());
                 $ret['result'] = 0;
                 $ret['message'] = $error;
             } else {
                 $upload_data = $this->upload->data();
-                array_push($archivos, array(
-                    "nombre" => $upload_data['file_name'],
-                    "tipo" => $upload_data['file_ext']
-                ));
+                $result = array(
+                    'archivo' => $upload_data['file_name'],
+                    'extension' => strtoupper(pathinfo($upload_data['file_name'], PATHINFO_EXTENSION))
+                );
+                $this->Documentos_modelo->insertDocument($result);
             }
-            $result =  json_encode($archivos);
         }
-        echo $result;
     }
 
     public function validar_usuario()

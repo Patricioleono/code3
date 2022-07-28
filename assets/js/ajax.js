@@ -46,7 +46,8 @@ $(document).ready(() => {
     });
   });
 
-  $('#btnAjax').click(() => {
+  $('#btnAjax').click((event) => {
+    event.preventDefault();
 
     const selector = document.querySelector('selector-webcomponent');
     var datos = selector.getList();
@@ -62,62 +63,29 @@ $(document).ready(() => {
 
       return imprimir;
     });
+  // console.log(userDatos[0][0]);
     var asunto = $("#asunto").val();
     var folio = $("#folio").val();
     var tipoDoc = $("#select").val();
     var comentario = $("#comentario").val();
+    var archivo = $('#file').fileinput('upload');
 
-
-    var formData = new FormData();
-    var archivos = $('#archivo').fileinput('getFileList');
-
-    formData.append('archivos', archivos.files);
-    formData.append('asunto', asunto);
-    formData.append('folio', folio);
-    formData.append('tipoDoc', tipoDoc);
-    formData.append('comentario', comentario);
-    formData.append('userDatos', userDatos);
-
-    fetch( 'http://10.5.225.24/desarrollo_plo/gestorDocumentos/index.php/documentos/soloAjax', {
-      method: 'POST',
-      body: formData
-    })
-    .then( function(response) {
-      if(response.ok){
-        return response.text();
-      }else{
-        throw "error en la llamada";
-      }
-    })
-    .then( function (texto) {
-      console.log(texto);
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
-
-
-    /*
     $.ajax({
-      url: "http://10.5.225.24/desarrollo_plo/gestorDocumentos/index.php/documentos/soloAjax",
+      url: "http://10.5.225.24/desarrollo_plo/gestorDocumentos/index.php/documentos/formAjax",
       type: 'post',
-      data: formData,
-      contentType: false,
-      precessData: false
+      data: {
+        asunto: asunto,
+        folio: folio,
+        tipoDoc: tipoDoc,
+        comentario: comentario,
+        userDatos: userDatos,
+      },
+      dataType: 'json',
     }).done(function (res) {
       console.log(res);
-    }).fail(function (e) {
-      if (e.responseJSON.descrip !== undefined) {
-        alert(e.responseJSON.descrip);
-      }
+      $('#file').fileinput('upload');
     });
-
-
-
-
-    var datos = [];
-    datos.push(asunto, folio, tipoDoc, comentario, imprimirDatos, unAdjunto);
-    console.log(datos);*/
   });
+  
 
 });

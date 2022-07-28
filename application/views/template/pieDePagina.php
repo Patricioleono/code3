@@ -45,10 +45,10 @@
         $("#sidebarToggle").click(() => {
             $('#hidden').show();
         });
-        $("#archivo").fileinput({
+        $("#file").fileinput({
             language: 'es',
             theme: "bs5",
-            uploadUrl: '<?php base_url();?>index.php/documentos/soloAjax',
+            uploadUrl: '<?php base_url();?>index.php/documentos/tratarDoc',
             uploadAsync: false,
             allowedFileExtensions: ['jpg', 'png', 'gif', 'pdf', 'doc', 'docx'],
             overwriteInitial: false,
