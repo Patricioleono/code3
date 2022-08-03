@@ -17,20 +17,22 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript" src="/componentes/navbar-webcomponent/v1/navbar-webcomponent.js"></script>
+
 
     <title>N°recibidos <?= $_SESSION['cabnombre'] . " " . $_SESSION['cabapellido']; ?></title>
 </head>
 
 <body>
 
-    <!--
+  <!-- 
 <pre>
 <?php
 var_dump($_SESSION);
 ?>
 </pre>
--->
 
+-->
     <nav class="navbar navbar-expand-md text-white custom border-bottom">
         <div class="container-fluid">
 
@@ -43,7 +45,7 @@ var_dump($_SESSION);
                         </a>
                     </li>
 
-                    <!--BÚSQUEDA-->
+                   
                     <li class="nav-item dropdown input-group col">
                         <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-magnifying-glass"></i></span>
                         <input type="text" class="form-control text-center" placeholder="Buscar Documentos" aria-label="Buscar Documentos" aria-describedby="addon-wrapping">
@@ -87,7 +89,7 @@ var_dump($_SESSION);
                         </div>
                     </li>
 
-                    <!--USUARIO-->
+                  
                     <li class="nav-item dropdown text-end col">
 
                         <a class="btn btn-outline-light dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -111,4 +113,15 @@ var_dump($_SESSION);
 
         </div>
     </nav>
+
+<!--
+<navbar-webcomponent
+        titulo="Gestor Documentos"
+        nombreUsuario="<?= $_SESSION['cabnombre']  . " " . $_SESSION['cabapellido']; ?>"
+        urlIntranet="http://10.5.225.24"
+        urlInicio="http://10.5.225.24/desarrollo_plo/gestorDocumentos"
+        urlAvatar="https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg"   
+        tema="navbar-dark"    
+        color="#3a76aa"
+      ></navbar-webcomponent> -->
 

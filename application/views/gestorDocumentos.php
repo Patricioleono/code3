@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
-<div class="d-flex w-100" id="wrapper">
+
+<div class="d-flex w-100" id="wrapper" style="margin-top: 54px ;">
     <!--SIDEBAR-->
     <div class="border-end bg-white" id="sidebar-wrapper">
         <div class="sidebar-heading border-bottom bg-light">
@@ -13,30 +14,32 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
             <button type="button" class="btn-close position-absolute start-10 buttonX" id="sidebarToggle" aria-label="Close"></button>
         </div>
-        <!--ITEM-->
+
         <div class="list-group list-group-flush" id="list-tab" role="tablist">
-            <a class="list-group-item" data-bs-toggle="list" href="#list-recibidos">
+            <!--RECIBIDOS-->
+            <a class="list-group-item" data-column="0" data-bs-toggle="list" href="#">
                 <i class="fa-solid fa-inbox"></i>
                 Recibidos
                 <span class="badge text-bg-info position-absolute end-0 me-5">4</span>
             </a>
-            <a class="list-group-item text-star" id="list-enviados-list" data-bs-toggle="list" href="#list-enviados" role="tab" aria-controls="list-enviados">
+            <!--ENVIADOS-->
+            <a class="list-group-item text-star" data-column="0" id="list-enviados-list" data-bs-toggle="list" href="#list-enviados" role="tab" aria-controls="list-enviados">
                 <i class="fa-regular fa-paper-plane"></i>
                 Enviados
                 <span class="badge colorGreen text-dark position-absolute end-0 me-5">4</span>
             </a>
-
-            <a class="list-group-item text-star" id="list-aprobados-list" data-bs-toggle="list" href="#list-aprobados" role="tab" aria-controls="list-aprobados">
+            <!--APROBADOS-->
+            <a class="list-group-item text-star" data-column="0" id="list-aprobados-list" data-bs-toggle="list" href="#list-aprobados" role="tab" aria-controls="list-aprobados">
                 <i class="fa-solid fa-envelope-circle-check"></i>
                 Aprobados
                 <span class="badge colorBlue text-dark position-absolute end-0 me-5">4</span>
             </a>
-
-            <a class="list-group-item text-star" id="list-importantes-list" data-bs-toggle="list" href="#list-importantes" role="tab" aria-controls="list-importantes">
+            <!--IMPORTANTES-->
+            <button class="list-group-item text-star" data-column="0" value="IMPORTANTE" id="filterImportant" data-bs-toggle="list" role="tab" aria-controls="list-importantes">
                 <i class="fa-solid fa-circle-exclamation"></i>
                 Importantes
                 <span class="badge colorRed text-dark position-absolute end-0 me-5">4</span>
-            </a>
+            </button>
         </div>
     </div>
 
@@ -44,31 +47,37 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <!--CONTENIDO-->
     <div class="w-100">
         <!--CONTENIDO DE LA TABLA-->
-
-
         <div class="container-fluid">
             <br />
+            <!--DESPLEGAR MENU RESPONSIVE-->
             <p class="ps-4" id="hidden">
                 <button class="btn btn-primary lateral" id="sidebarToggle2" style="display:none;">
                     <i class="fa-solid fa-arrow-right-to-bracket"></i>
                     Desplegar Menu
                 </button>
             </p>
+
             <div class="container-fluid">
                 <div class="tab-content tab-pane show w-100" id="list-recibidos" role="tabpanel" aria-labelledby="list-recibidos-list">
-                    <table class="table border border-1 text-start display" id="data_table" style="width: 100%;">
+                    <table class="table border border-1 text-start display" id="data_table">
                         <thead class="col col-auto">
                             <tr class="col col-auto">
-                                <th scope="col" class="">Prioridad Doc.</th>
-                                <th scope="col">Asunto Doc.</th>
-                                <th scope="col">Comentario Doc.</th>
-                                <th scope="col">N° de Folio.</th>
-                                <th scope="col">Estado del Doc.</th>
-                                <th scope="col">Seguimiento Doc.</th>
+                                <th scope="col" class="text-center">FILTRo</th>
+                                <th scope="col" class="text-center">Prioridad Doc.</th>
+                                <th scope="col" class="text-center">Asunto Doc.</th>
+                                <th scope="col" class="text-center">Comentario Doc.</th>
+                                <th scope="col" class="text-center">N° de Folio.</th>
+                                <!-- <th scope="col">Estado del Doc.</th>-->
+                                <th scope="col" class="text-center">Seguimiento Doc.</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody class="text-center">
+                            <!--
+                                NOTA: datatable arroja error al cargar menos datos
+                                de los que se pueden mostrar
+
+                                
+
                                 <td>Importante <i class="fa-solid fa-circle-exclamation" style="color: red;"></i></td>
                                 <th>Gestión Horas</th>
                                 <td>Gestionar Horas Extras..</td>
@@ -144,7 +153,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <a href="" class="fa-regular fa-eye text-decoration-none text-dark">
                                     </a>
                                 </td>
-                            </tr>
+                            </tr>-->
                         </tbody>
                     </table>
 
@@ -169,7 +178,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <div class="input-group mb-3">
                                 <selectorprestaciones-component class="w-100">
                                     <div class="text-center mb-1">Dirigido a: <i class="fa-solid fa-user-plus"></i></div>
-                                    <selector-webcomponent name="selectorpersonas" url="http://10.5.225.24/api/index.php/SelectorWebComponent/lists" cat="personas" list="true" token="<?= $usuario; ?>" confirmDelete="true" allowDuplicates="false" placeholder="Agregar Usuarios.." id="selectorUser">
+                                    <selector-webcomponent name="selectorpersonas" url="http://10.5.225.24/api/index.php/SelectorWebComponent/lists" cat="personas" list="true" token="<?= $usuario; ?>" confirmDelete="true" allowDuplicates="false" label="Agregar Usuarios.." id="selectorUser">
 
 
                                     </selector-webcomponent>
@@ -210,7 +219,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <hr class="border border-1" />
                         <div class="col-md-10">
                             <div class="file-loading">
-                                <input id="file" name="file[]" type="file" multiple>
+                                <input id="file" name="file[]" type="file" data-preview-file-type="text" multiple>
                             </div>
                         </div>
 

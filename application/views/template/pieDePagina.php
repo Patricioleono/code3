@@ -14,52 +14,110 @@
 <script src="<?= base_url('assets/js/main.js'); ?>"></script>
 
 <script>
-    $(document).ready(() => {
-        $('#data_table').DataTable({
-            scrollY: '50vh',
-            scrollCollapse: true,
-            lengthChange: false,
-            info: false,
-            searching: false,
-            language: {
-                "processing": "Procesando...",
-                "lengthMenu": "Mostrar _MENU_ registros",
-                "zeroRecords": "No se encontraron resultados",
-                "emptyTable": "Ningún dato disponible en esta tabla",
-                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "infoThousands": ",",
-                "loadingRecords": "Cargando...",
+    var table = $('#data_table').DataTable({
+        pageLength: 20,
+        dom: 'Bfrtip',
+        buttons: ['excel'],
+        processing: false,
+        serverSide: true,
+        order: [0, 'asc'],
+        ajax: {
+            url: "http://10.5.225.24/desarrollo_plo/gestorDocumentos/index.php/Tomardatos/tomarDatos",
+            type: 'POST',
+            dataSrc: ''
+        },
+        columns: [{
+                data: 'tipoDoc'
+            },
+            {
+                data: 'tipoDoc',
+                render: function(data, type) {
 
-                "paginate": {
-                    "first": "Primero",
-                    "last": "Último",
-                    "next": '<i class="fa-solid fa-arrow-right-long"></i>',
-                    "previous": '<i class="fa-solid fa-arrow-left-long"></i>'
+                    if (data === 'IMPORTANTE') {
+                        return '<i class="fa-solid fa-circle-exclamation" style="color: red;"> ' + data + ' <i class="fa-solid fa-circle-exclamation" style="color: red;">';
+                    } else if (data === 'PRIVADO') {
+                        return '<i class="fa-solid fa-lock text-dark"></i> ' + data;
+                    } else if (data === 'ORDINARIO') {
+                        return '<i class="fa-regular fa-file-lines text-dark"></i> ' + data;
+                    }
                 }
+            },
+            {
+                data: 'asunto'
+            },
+            {
+                data: 'comentario',
+                render: function(data) {
+                    newComment = (data.length > 15) ? data.slice(0, 15 - 1) + '....' : data;
+                    return newComment;
+                }
+            },
+            {
+                data: 'folio'
+            },
+            {
+                data: '',
+                render: function(data, type) {
+                    return '<a href="" id="seguimientoDoc" class="fa-regular fa-eye text-decoration-none text-dark"></a>';
+                }
+            },
+        ],
+        responsive: true,
+        scrollY: '75vh',
+        scrollCollapse: true,
+        lengthChange: false,
+        info: false,
+        searching: false,
+        language: {
+            "processing": "Procesando Datos...",
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "No se encontraron resultados",
+            "emptyTable": "Ningún dato disponible en esta tabla",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "infoThousands": ",",
+            "loadingRecords": "Cargando Datos...",
+
+            "paginate": {
+                "first": '',
+                "last": '',
+                "next": '<i class="fa-solid fa-arrow-right-long"></i>',
+                "previous": '<i class="fa-solid fa-arrow-left-long"></i>'
             }
-        });
-        $("#sidebarToggle2").click(() => {
-            $('#hidden').hide();
-        });
+        },
+    });
 
-        $("#sidebarToggle").click(() => {
-            $('#hidden').show();
-        });
-        $("#file").fileinput({
-            language: 'es',
-            theme: "bs5",
-            uploadUrl: '<?php base_url();?>index.php/documentos/tratarDoc',
-            uploadAsync: false,
-            allowedFileExtensions: ['jpg', 'png', 'gif', 'pdf', 'doc', 'docx'],
-            overwriteInitial: false,
-            initialPreviewAsData: true,
-            maxFileSize: 300000,
-            removeFromPreviewOnError: true,
-            showClose: false,
-            showPreview: false,
-            showUpload: false
+ 
+    $("#file").fileinput({
+        language: 'es',
+        theme: "bs5",
+        uploadUrl: '<?php base_url(); ?>index.php/documentos/tratarDoc',
+        uploadAsync: false,
+        allowedFileExtensions: ['jpg', 'img', 'gif', 'pdf', 'doc', 'docx'],
+        overwriteInitial: false,
+        initialPreviewAsData: true,
+        maxFileSize: 300000,
+        removeFromPreviewOnError: true,
+        showClose: false,
+        showPreview: true,
+        showUpload: false,
+        uploadExtraData: function() {
+            return {
+                retornarId: $('#btnAjax').val()
+            };
+        }
+    });
+    $('#filterImportant').click( function() {
+       table.column($(this).data('column'))
+            .search($(this).val())
+            .draw();
+    });
 
-        });
+    $("#sidebarToggle2").click(() => {
+        $('#hidden').hide();
+    });
+
+    $("#sidebarToggle").click(() => {
+        $('#hidden').show();
     });
 </script>
 </body>

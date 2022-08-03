@@ -7,6 +7,9 @@ class Documentos extends CI_Controller
         parent::__construct();
         $this->load->database();
         $this->load->model('Documentos_modelo');
+        $this->load->model('Formulario_modelo');
+        $this->load->model('Personas_modelo');
+        $this->load->model('PuenteDatos_modelo');
     }
 
     public function index()
@@ -26,38 +29,27 @@ class Documentos extends CI_Controller
     }
     public function formAjax()
     {
+        
         $asunto = $this->input->post('asunto');
         $folio = $this->input->post('folio');
         $tipoDoc = $this->input->post('tipoDoc');
         $comentario = $this->input->post('comentario');
-
-        $result = array(
+        $datosForm = array(
             'asunto' => $asunto,
             'folio' =>  $folio,
-            'tipoDoc' => $tipoDoc,
+            'tipoDoc' => strtoupper($tipoDoc),
             'comentario' => $comentario
         );
-    $this->Documentos_modelo->formData($result);
+        $formularioKey = $this->Formulario_modelo->formData($datosForm);
+        echo json_encode($formularioKey);
 
-        $cabecera = $_SESSION['cabcodigo'];
-        //RECORRER Y RETORNAR IDS
-        $userDatos = $this->input->post('userDatos');
 
-        for ($i = 0; $i < count($userDatos); $i++) {
-            $rescatarId = array();
-            array_push(
-                $rescatarId,
-                array(
-                    'userData' => $userDatos[$i][0],
-                    'cabecera' => $cabecera
-                )
-            );
-        }
     }
-
 
     public function tratarDoc()
     {
+
+        $recuperarId = $this->input->post('retornarId');
 
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png|pdf|doc|docx';
@@ -83,13 +75,55 @@ class Documentos extends CI_Controller
             } else {
                 $upload_data = $this->upload->data();
                 $result = array(
-                    'archivo' => $upload_data['file_name'],
-                    'extension' => strtoupper(pathinfo($upload_data['file_name'], PATHINFO_EXTENSION))
+                    'archivo' => strtoupper($upload_data['file_name']),
+                    'extension' => strtoupper(pathinfo($upload_data['file_name'], PATHINFO_EXTENSION)),
+                    'id' => $recuperarId
                 );
-                $this->Documentos_modelo->insertDocument($result);
+                $returnId = $this->Documentos_modelo->insertDocument($result);
+                echo json_encode($returnId);
             }
         }
     }
+    public function tratarPersonas()
+    {
+        $retornarId = $this->input->post('btn');
+        var_dump($retornarId);
+
+
+        $nombreUsuario = $_SESSION['cabnombre'] . " " . $_SESSION['cabapellido'];
+        $cabecera = $_SESSION['cabcodigo'];
+        // $formularioId = $this->Documentos_modelo->documentoId();
+
+        //RECORRER Y RETORNAR IDS
+        $userDatos = $this->input->post('usuario');
+        //   echo json_encode($formularioId);
+
+        for ($i = 0; $i < count($userDatos); $i++) {
+            $idLista = $userDatos[$i]['value'];
+            $nombreLista = $userDatos[$i]['label'];
+            if ($userDatos > 0) {
+                $datosUsuarios = array(
+                    'nombreUser' => $nombreUsuario,
+                    'creadorCod' => $cabecera,
+                    'userRecibe' => $nombreLista,
+                    'recibeCod' => $idLista
+                );
+                $this->Personas_modelo->userDatosForm($datosUsuarios);
+
+                $puenteUserDoc = array(
+                    'creadorCod' => $cabecera,
+                    'recibeCod' => $idLista,
+                    'formularioKey' =>  $retornarId
+                );
+                $this->PuenteDatos_modelo->userPuenteForm($puenteUserDoc);
+                //insertar ids en puenteDatos
+            } else {
+                echo "NO EXISTE LISTA DE USUARIOS PARA ENVIAR DOCUMENTOS";
+            }
+            //  echo json_encode($idUserDatos);
+        }
+    }
+
 
     public function validar_usuario()
     {
@@ -104,4 +138,5 @@ class Documentos extends CI_Controller
     {
         $this->load->view('salir');
     }
+
 }

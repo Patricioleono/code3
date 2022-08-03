@@ -15,23 +15,11 @@ class Documentos_modelo extends CI_Model
     {
         $data = array(
             'nombreDoc' => $result['archivo'],
-            'fechaCreado' => date('Y-m-d H:i:s'),
-            'extension' => $result['extension']
-           
+            'extensionDoc' => $result['extension'],
+            'formularioId' => $result['id']
         );
-  
-        $this->db->insert('documentos', $data);
-    }
-
-   
-    public function formData($datosForm)
-    {
-        $data = array(
-            'asunto' => $datosForm['asunto'],
-            'numeroFolio' => $datosForm['folio'],
-            'tipoDoc' => $datosForm['tipoDoc'],
-            'comentario' => $datosForm['comentario']
-        );
-        $this->db->insert('documentos', $data);
+        $this->db->insert('documentoAdjunto', $data);
+        $id = $this->db->insert_id();
+        return $id;
     }
 }
