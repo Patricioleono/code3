@@ -1,0 +1,55 @@
+:root {
+	--offcanvas-width: 230px;
+	--topNavbarHeight: 56px;
+}
+
+.offcanvas {
+	width: var(--offcanvas-width);
+	top: var(--topNavbarHeight);
+	transition: .5s;
+	overflow-y: auto;
+}
+
+@media (min-width: 992px) {
+	main {
+		margin-left: 249px;
+		transition: .5s;
+	}
+
+	.offcanvas {
+		-webkit-transform: none;
+		transform: none;
+		visibility: visible !important;
+		top: var(--topNavbarHeight);
+		height: calc(100% - var(--topNavbarHeight));
+	}
+
+	.offcanvas-backdrop::before {
+		display: none;
+	}
+
+}
+/*Datatable Searching TRUE*/
+.dataTables_filter,
+.dataTables_info {
+	padding-bottom: 5px;
+	display: none;
+}
+main{
+	margin-top: 70px;
+}
+/*style datatables*/
+table#data_table.dataTable tbody tr:hover {
+	background-color: #F7F6F2;
+}
+
+table#data_table.dataTable tbody tr:hover > .sorting_1 {
+	background-color: #F7F6F2;
+}
+#data_table_paginate{
+	padding-top: 12px;
+	position: absolute;
+	right: 0px;
+	width: 200px;
+	padding: 10px;
+}
