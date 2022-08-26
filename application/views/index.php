@@ -71,6 +71,29 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</tbody>
 					</table>
 				</div>
+
+
+				<!--DataTables Archivados-->
+
+				<div class="border-1 d-none">
+					<table class="table" id="onlyArchivedDoc">
+						<thead class="col col-auto">
+						<tr class="col col-auto border-1">
+							<th scope="col">Prioridad Doc.</th>
+							<th scope="col">Asunto Doc.</th>
+							<th scope="col">Comentario Doc.</th>
+							<th scope="col">N° de Folio.</th>
+							<!-- <th scope="col">Estado del Doc.</th>-->
+							<th scope="col">Acciones</th>
+						</tr>
+						</thead>
+						<tbody class="border-1 ">
+
+						</tbody>
+					</table>
+				</div>
+
+
 			</div>
 		</main>
 	</div>
@@ -93,6 +116,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <script>
 	$(document).ready(() => {
 		autosize(document.querySelectorAll('textarea'));
+		$('#archivedBtn').on('click', function (e) {
+			let id = $(this).val();
+			$.ajax({
+				url: '<?= base_url(); ?>index.php/index/get_saveArchivedDoc',
+				method: 'post',
+				data:{
+					id: id,
+				},
+				dataType: 'json',
+			}).done( (allJoin) => {
+				console.log(allJoin);
+			});
+		});
+
 
 		//Datatable data
 		var datatable = $('#data_table').DataTable({
@@ -275,18 +312,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				});
 			});
 			$('#modalReSend').modal('toggle');
-		});
-
-		$('#archivedBtn').on('click', function (e) {
-			let id = $(this).val();
-			$.ajax({
-				url: '<?= base_url(); ?>index.php/index/get_saveArchivedDoc',
-				method: 'post',
-				data:{
-					id: id,
-				},
-				dataType: 'json',
-			});
 		});
 
 		//send form with ajax click

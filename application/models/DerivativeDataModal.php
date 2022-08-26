@@ -61,5 +61,4 @@ class DerivativeDataModal extends CI_Model
 		$data = $this->db->get();
 		return $data->result_array();
 	}
-
 }

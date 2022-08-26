@@ -12,6 +12,7 @@ class Index extends CI_Controller
 		$this->load->model('DataFormUser');
 		$this->load->model('KeyDataForm');
 		$this->load->model('DerivativeDataModal');
+		$this->load->model('ArchivedDataModel');
 	}
 
 	public function index()
@@ -386,7 +387,8 @@ public function get_FirstNodo(){
 	}
 	public function get_saveArchivedDoc(){
 		$id = $this->input->post('id');
-
+		$data = $this->ArchivedDataModel->get_JoinData($id);
+		echo json_encode($data);
 	}
 
 }
