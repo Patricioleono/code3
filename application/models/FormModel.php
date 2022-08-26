@@ -42,10 +42,8 @@ class FormModel extends CI_model
 	public function get_AllData()
 	{
 		$this->db->distinct();
-		$this->db->select('form.id, tipoDoc, asunto, comentario, folio, doc.nombreDoc');
-		$this->db->from('datosFormulario form');
-		$this->db->join('documentoAdjunto doc', 'doc.formularioId = form.id');
-		$this->db->where('doc.estado = 1');
+		$this->db->select('id, tipoDoc, asunto, comentario, folio');
+		$this->db->from('datosFormulario');
 		$result = $this->db->get();
 		return $result->result_array();
 	}
@@ -151,6 +149,15 @@ class FormModel extends CI_model
 		//$this->db->join('derivarDoc dd','dd.formKey = usa.formKey');
 		$this->db->where('usa.formKey =', $idDoc);
 		//$this->db->limit(1);
+		$data = $this->db->get();
+		return $data->result_array();
+	}
+	public function count_ArchivedData(){
+		$this->db->distinct();
+		$this->db->select('df.id');
+		$this->db->from('datosFormulario df');
+		$this->db->join(' documentoAdjunto da', 'df.id = da.formularioId');
+		$this->db->where('da.estado = 4');
 		$data = $this->db->get();
 		return $data->result_array();
 	}

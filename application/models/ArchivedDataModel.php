@@ -10,14 +10,19 @@ class ArchivedDataModel extends CI_Model
 
 	public function get_JoinData($id){
 		$this->db->select('df.id, df.comentario, df.asunto, df.folio, df.tipoDoc, dd.comentarioDerivarDoc, dd.fecha');
-
 		$this->db->from('datosFormulario df');
 		$this->db->join('derivarDoc dd', 'dd.formKey = df.id');
-		
 		$this->db->where('df.id', $id);
 		$this->db->where('dd.formKey', $id);
 		$this->db->order_by('dd.id');
 		$data = $this->db->get();
+		$this->add_ArchivedStatus($id);
 		return $data->result_array();
+
+	}
+	public function add_ArchivedStatus($id){
+		$this->db->set('estado', 4);
+		$this->db->where('formularioId', $id);
+		$this->db->update('documentoAdjunto');
 	}
 }

@@ -1,14 +1,12 @@
 <div class="offcanvas offcanvas-start nav-pills" style="z-index: 100 !important;" data-bs-scroll="true"
 	 data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 	<div class="offcanvas-title d-grid gap-2 p-2">
-		<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalCreateDoc"
+		<button type="button" class="btn btn-outline-primary mt-1" data-bs-toggle="modal" data-bs-target="#modalCreateDoc"
 				id="btnCreateDoc">
 			<i class="fa-solid fa-file-circle-plus"></i>
 			Crear Documento
 		</button>
 
-		<!-- button type="button" class="display-none btn-close position-absolute start-10 buttonX" id="sidebarToggle"
-				aria-label="Close"></button -->
 	</div>
 	<hr class="border-1">
 	<div class="nav nav-pills flex-column mb-auto">
@@ -38,13 +36,13 @@
 					<i class="fa-solid fa-circle-exclamation"></i>
 					Importantes
 					<span class="badge bg-danger text-light position-absolute end-0 me-5"
-						  id="importantDoc"><?= $importantDoc ?></span>
+						  id="importantDoc"><?= $importantDoc; ?></span>
 				</a>
 				<!--ARCHIVADOS-->
-				<a class="list-group-item text-star" type="button" data-column="0" value="ARCHIVADOS">
+				<a class="list-group-item text-star" type="button" data-column="0" value="ARCHIVADOS" id="btnArchivados">
 					<i class="fa-solid fa-envelope-circle-check"></i>
 					Archivados
-					<span class="badge bg-success text-light position-absolute end-0 me-5" id="archDoc">4</span>
+					<span class="badge bg-success text-light position-absolute end-0 me-5" id="archDoc"><?= $docArchived; ?></span>
 				</a>
 			</div>
 		</div>

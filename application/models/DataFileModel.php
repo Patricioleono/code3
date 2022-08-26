@@ -10,10 +10,10 @@ class DataFileModel extends CI_Model
 
 	}
 
-	public function update_StatusDoc($status, $idForm)
+	public function update_StatusDoc($id)
 	{
-		$this->db->set('estado', $status);
-		$this->db->where('formularioId', $idForm);
+		$this->db->set('estado', 3);
+		$this->db->where('formularioId', $id);
 		$this->db->update('documentoAdjunto');
 
 	}

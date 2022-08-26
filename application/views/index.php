@@ -51,10 +51,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<div class="m-4">
 				<div class="fw-bolder d-flex justify-content-center mb-2 ">
 					<!--SEARCHING CUSTOM-->
+					<i id="btnMenuResponsive" class="fa-solid fa-angles-right fs-5 text-start align-start" data-bs-toggle="offcanvas" href="#offcanvasScrolling" role="button" aria-controls="offcanvasExample"></i>
 					<?php $this->load->view('searchingNav'); ?>
 
 				</div>
-				<div class="border-1">
+				<div id="indexDataTable" class="border-1">
 					<table class="table" id="data_table">
 						<thead class="col col-auto">
 						<tr class="col col-auto border-1">
@@ -62,28 +63,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<th scope="col">Asunto Doc.</th>
 							<th scope="col">Comentario Doc.</th>
 							<th scope="col">N° de Folio.</th>
-							<!-- <th scope="col">Estado del Doc.</th>-->
-							<th scope="col">Acciones</th>
-						</tr>
-						</thead>
-						<tbody class="border-1 ">
-
-						</tbody>
-					</table>
-				</div>
-
-
-				<!--DataTables Archivados-->
-
-				<div class="border-1 d-none">
-					<table class="table" id="onlyArchivedDoc">
-						<thead class="col col-auto">
-						<tr class="col col-auto border-1">
-							<th scope="col">Prioridad Doc.</th>
-							<th scope="col">Asunto Doc.</th>
-							<th scope="col">Comentario Doc.</th>
-							<th scope="col">N° de Folio.</th>
-							<!-- <th scope="col">Estado del Doc.</th>-->
 							<th scope="col">Acciones</th>
 						</tr>
 						</thead>
@@ -117,16 +96,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	$(document).ready(() => {
 		autosize(document.querySelectorAll('textarea'));
 		$('#archivedBtn').on('click', function (e) {
+			$('#modalReSend').modal('toggle');
 			let id = $(this).val();
 			$.ajax({
 				url: '<?= base_url(); ?>index.php/index/get_saveArchivedDoc',
 				method: 'post',
-				data:{
+				data: {
 					id: id,
 				},
 				dataType: 'json',
-			}).done( (allJoin) => {
-				console.log(allJoin);
+			}).done((allJoin) => {
+				//console.log(allJoin);
+				swal({
+					title: "Documentos Archivados!",
+					icon: "success",
+					button: "Ok"
+				});
 			});
 		});
 
@@ -219,6 +204,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				.draw();
 		});
 		$('#btnRecived').click(() => {
+			datatable.column()
+				.search('')
+				.draw();
+		});
+		$('#btnArchivados').click(() => {
 			datatable.column()
 				.search('')
 				.draw();
@@ -418,32 +408,32 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				dataType: 'json',
 			}).done((dataUser) => {
 				console.log(dataUser);
-						for (let i = 0; i < dataUser.length; i++){
-							if(dataUser[i].creadorCod == dataUser[i].quienDerivaCod){
-								$(
-									"<li class='list-group-item bg-secondary'>"
-									+ dataUser[i].userCreador + "<span class='badge badge-info'> " +
-									" Documento " + dataUser[i].fecha + "</span> " +
-									"</li><ul id='" + dataUser[i].formKey + "'></ul>").appendTo('#tracingData');
+				for (let i = 0; i < dataUser.length; i++) {
+					if (dataUser[i].creadorCod == dataUser[i].quienDerivaCod) {
+						$(
+							"<li class='list-group-item bg-secondary'>"
+							+ dataUser[i].userCreador + "<span class='badge badge-info'> " +
+							" Documento " + dataUser[i].fecha + "</span> " +
+							"</li><ul id='" + dataUser[i].formKey + "'></ul>").appendTo('#tracingData');
 
-								if(dataUser[i].creadorCod != <?= $_SESSION['cabcodigo']?>){
+						if (dataUser[i].creadorCod != <?= $_SESSION['cabcodigo']?>) {
 
-									$("<li class='list-group-item bg-secondary'>"
-									+ dataUser[i].userCreador + "<span class='badge badge-info'> " +
-									" Documento " + dataUser[i].fecha + "</span> " +
-									"</li><ul id='" + dataUser[i].formKey + "'></ul>").appendTo('#tracingData');
-								}
-
-							}else{
-
-								$(
-									"<li class='list-group-item'>" +
-									"<span class='text-dark'> " +
-									" Creo el Documento Con Fecha " + dataUser[i].fecha + "</span> "
-									+ dataUser[i].quienDeriva + " <span class='fa fa-arrow-circle-right'></span> " + dataUser[i].listaUsuarios +
-									"</li><ul id='" + dataUser[i].formKey + "'></ul>").appendTo('#tracingData #' + dataUser[i].formKey + '');
-							}
+							$("<li class='list-group-item bg-secondary'>"
+								+ dataUser[i].userCreador + "<span class='badge badge-info'> " +
+								" Documento " + dataUser[i].fecha + "</span> " +
+								"</li><ul id='" + dataUser[i].formKey + "'></ul>").appendTo('#tracingData');
 						}
+
+					} else {
+
+						$(
+							"<li class='list-group-item'>" +
+							"<span class='text-dark'> " +
+							" Creo el Documento Con Fecha " + dataUser[i].fecha + "</span> "
+							+ dataUser[i].quienDeriva + " <span class='fa fa-arrow-circle-right'></span> " + dataUser[i].listaUsuarios +
+							"</li><ul id='" + dataUser[i].formKey + "'></ul>").appendTo('#tracingData #' + dataUser[i].formKey + '');
+					}
+				}
 
 
 			});
@@ -734,7 +724,33 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		$('#searchingData').on('keyup', function () {
 			datatable.search(this.value).draw();
 		});
+		$('#btnMenuResponsive').click( () => {
+			$('#searchData').removeClass('col-11');
+			$('#responsiveCol').removeClass('col-1');
+			$('#responsiveCol').removeClass('text-center');
+			$('#responsiveCol').removeClass('align-center');
+			$('#iconArrow').removeClass('d-none');
+			$('#responsiveCol').addClass('mt-1');
+			$('#searchData').addClass('col-9');
+			$('#responsiveCol').addClass('col-3');
+			$('#responsiveCol').addClass('text-end');
+			$('#responsiveCol').addClass('align-end');
+			$('#iconSearch').addClass('d-none');
 
+		});
+		$('#iconArrow').click( () => {
+			$('#searchData').addClass('col-11');
+			$('#responsiveCol').addClass('col-1');
+			$('#responsiveCol').addClass('text-center');
+			$('#responsiveCol').addClass('align-center');
+
+			$('#iconArrow').addClass('d-none');
+			$('#searchData').removeClass('col-9');
+			$('#responsiveCol').removeClass('col-3');
+			$('#responsiveCol').removeClass('text-end');
+			$('#responsiveCol').removeClass('align-end');
+			$('#iconSearch').removeClass('d-none');
+		});
 
 	});
 </script>

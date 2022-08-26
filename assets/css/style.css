@@ -53,3 +53,16 @@ table#data_table.dataTable tbody tr:hover > .sorting_1 {
 	width: 200px;
 	padding: 10px;
 }
+#btnMenuResponsive{
+	display: none;
+}
+@media (max-width: 992px){
+	#btnMenuResponsive{
+		display: inline-block;
+		position: relative;
+		cursor: pointer;
+		margin-right: 22px;
+
+	}
+
+}

@@ -29,16 +29,13 @@ class Index extends CI_Controller
 			if (empty($userSession)) {
 				$this->load->view('logout');
 			} else {
-				$revisedDocument = count($this->FormModel->get_RevisedDoc());
-				$sendDocument = count($this->DataFormUser->get_SendData($userSession));
-				$importantDoc = count($this->FormModel->get_Important());
-				$docRecive = count($this->DataFormUser->get_RecibeData($userSession));
 				$token = array(
 					'token' => self::get_ApiToken($userSession),
-					'docRecive' => $docRecive,
-					'importantDoc' => $importantDoc,
-					'sendDoc' => $sendDocument,
-					'revisedDocument' => $revisedDocument
+					'docRecive' => count($this->DataFormUser->get_RecibeData($userSession)),
+					'importantDoc' => count($this->FormModel->get_Important()),
+					'sendDoc' => count($this->DataFormUser->get_SendData($userSession)),
+					'revisedDocument' => count($this->FormModel->get_RevisedDoc()),
+					'docArchived' => count($this->FormModel->count_ArchivedData())
 				);
 				$this->load->view('index', $token);
 			}
@@ -145,14 +142,13 @@ class Index extends CI_Controller
 	//update
 	public function update_DocStatus()
 	{
-		$status = 1;
 		$idForm = $this->input->post('idForm');
-		self::update_DocumentStatus($status, $idForm);
+		self::update_DocumentStatus($idForm);
 	}
 
-	protected function update_DocumentStatus($status, $id)
+	protected function update_DocumentStatus($id)
 	{
-		$this->DataFileModel->update_StatusDoc($status, $id);
+		$this->DataFileModel->update_StatusDoc($id);
 		//echo json_encode($idForm);
 	}
 
@@ -390,5 +386,6 @@ public function get_FirstNodo(){
 		$data = $this->ArchivedDataModel->get_JoinData($id);
 		echo json_encode($data);
 	}
+
 
 }
