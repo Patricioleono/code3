@@ -22,7 +22,7 @@ El Gestor de Documentos esta desarrollado con las siguientes tecnologias y Plugi
 - `File Input Krajee <https://plugins.krajee.com/file-input#usage>`_.
 - `Selector WebComponents Componente Local realizado Por Cristian Valenzuela <http://10.5.225.61:8929/cristian.valenzuela/selector-webcomponent/-/tree/main/>`_.
 - `Navbar WebComponents Componente Local realizado Por Cristian Valenzuela <http://10.5.225.61:8929/cristian.valenzuela/navbar-webcomponent>`_.
-- `Font Awesome Icons <https://fontawesome.com/v6/search?m=free>`_.
+- [Font Awesome Icons] (https://fontawesome.com/v6/search?m=free).
 - `AutoSize.js by Jack Moore <https://www.jacklmoore.com/autosize/>`_.
 - `Sweet Alert <https://sweetalert.js.org/>`_.
 
