@@ -1,6 +1,6 @@
-####################
-Gestor de Documentos
-####################
+
+# Gestor de Documentos
+
 
 
 El gestor de documentos tiene como fin el poder enviar recepcionar y tener el flujo
@@ -8,7 +8,7 @@ de los distintos documentos que se manejan en el hospital, esto con la intenció
 de tener todo respaldado de manera digital, esto esta apegado a  *[Ley de Transformación Digital](https://digital.gob.cl/transformacion-digital/ley-de-transformacion-digital/).*
 
 *******************
-Desarrollo
+## Desarrollo
 *******************
 
 El Gestor de Documentos esta desarrollado con las siguientes tecnologias y Plugins.
@@ -27,16 +27,18 @@ El Gestor de Documentos esta desarrollado con las siguientes tecnologias y Plugi
 - *[Sweet Alert](https://sweetalert.js.org/).*
 
 *******************
-Codigo
+# Codigo
 *******************
 
-##Vista##
+## Vista (MVC)
+
 
 ```php
 	<?php $this->load->view('asidebar'); ?>
 	<?php $this->load->view('navbar'); ?>
 	<?php $this->load->view('searchingNav'); ?>
 ```
+
 De esta manera realizamos la llamada a las diferentes vistas, en este caso llamamos a asidebar, navbar,
 searchingNav, los cuales estan divididos en sus respectivos archivos en la vista, tambien tenamos la
 llamada a los diferentes modal que usamos, esto lo realizamos para que el codigo sea mas facil de interpretar,
@@ -274,4 +276,236 @@ los espacios sin valores recorremos los datos enviados desde el backend, con la 
 insertamos en un campo con un identificador por medio de la funcion ***'.append'***, ```$('#sendAsunto').append('Asunto: ', opt.asunto);```.
 
 Antes de cerrar la funcion ***'done'*** de ajax, realizamos una nueva llamad a ajax, para solicitar informacion al backend,
+al recibir esta solicitud, la recorremos mediante la funcion ***'$.each'***, tambien realizamos validaion mediante condicional
+*if* verificamos si data(respuesta del backend), viene vacio ```if (data.length > 0)```, si tiene datos, preguntamos,
+si la extension del documento es igual a *pdf, docx, doc, jpeg* si es asi, igualamos a la imagen respectiva(esta se mostrara mas adelante),
+se realiza un append, en conjunto con la extension, el nombre del documento y la ruta del servidor(carpeta donde se sube el documento).
+```javascript
+	$('#docData').append(
+	'<div class="col-md-3">' +
+	'<div class="card m-1 p-2" style="width: 7rem;">'
+	+ opt.extensionDoc +
+	'<div class="card-body">' +
+	'<a href="<?= base_url('uploads/'); ?>' + opt.nombreDoc + '" target="_blank" class="card-text text-decoration-none" title="' + opt.nombreDoc + '" id="documentStatus">' + newName + '</a>' +
+	'</div>' +
+	'</div>' +
+	'</div>');
+```
+esto nos mostrara el enlace del documento y podremos vizualisar una imagen el tipo de document, al hacer click en el enlace que nos deja
+podremos ir directamente al documento(en caso de ser tipo Doc, Docx), este se *desacarga de manera automatica.*
+
+para finalizar esta pate dejamos el valor del formulario en un input ```$('#formValue').val(opt.formularioId);```
+y desplegamos el modal con lo anterior ya cargado ```$('#modalReSend').modal('toggle');```
+
+*******************
+
+al hacer click en el boton de derivacion(dentro del modal de re-envio / derivacion), este esconde al footer del modal,
+y el lado izquerdo del modal, al esconer estas partes mediante un append le asignamos codigo para obtener un selector de
+personas, un campo de comentario opcional, y un campo para adjuntar un documento ese proceso lo realizamos mediante Jquery,
+con estos campos en pantalla podemos ver que queda solo el boton de derivar.
+
+```javascript
+$('#derivationBtn').on('click', () => {
+			$('#footerHide').hide();
+			$('#derivationBtnSend').removeClass('d-none');
+			$('#derivateFile').removeClass('d-none');
+			$('#sendComentario').empty();
+			$('#docDestiny').empty();
+
+			$('#docDestiny').append(
+				'<selectorprestaciones-component class="w-100">' +
+				'<div class="text-center mb-1">Derivado a: <i class="fa-solid fa-file-import"></i>' +
+				'</div>' +
+				'<selector-webcomponent name="selectorpersonas"' +
+				'url="http://10.5.225.24/api/index.php/SelectorWebComponent/lists"' +
+				'cat="personas" list="true"' +
+				'token="<?= $token;?>"' +
+				'confirmDelete="true" allowDuplicates="false"' +
+				'label="Agregar Usuarios.." id="derivationUser">' +
+				'</selector-webcomponent>' +
+				'</selectorprestaciones-component>'
+			);
+			$('#sendComentario').append(
+				'<div class="input-group">' +
+				'<span class="input-group-text">Comentario</span>' +
+				'<textarea class="form-control" aria-label="With textarea" id="derivatedComment"' +
+				'name="derivatedComment"></textarea>' +
+				'</div>'
+			);
+
+		});
+```
+
+al enviar la derivacion, tenemos dos casos, el primero, si se envia el documento sin destinatario esta mostrara una alerta,
+ya que al derivar tiene que ir dirigido a al menos una persona, lanzamos una peticion por ajax, por la cual enviaremos los datos
+del formulario de derivacion, el retornar los datos desde el backend, subimos el documento, recargamos el data table, mostramos un mensaje
+mediante sweetalert, y cerramos el modal.
+
+```javascript
+$('#derivationBtnSend').on('click', (e) => {
+			let idBtn = $('#derivationBtnSend').val();
+			const derivateSelect = document.querySelector('#derivationUser');
+			let derivateUser = derivateSelect.getList();
+			let derivatedComment = $('#derivatedComment').val();
+			//console.log(idBtn);
+			if (derivateUser < 1) {
+				swal({
+					title: "Error!",
+					text: "Seleccione a quien Derivar!",
+					icon: "error",
+					button: "Volver"
+				});
+			} else {
+				$.ajax({
+					url: '<?= base_url();?>index.php/index/add_DerivativeData',
+					method: 'post',
+					data: {
+						derivateUser: derivateUser,
+						derivatedComment: derivatedComment,
+						idQuery: idBtn
+					},
+					dataType: 'json',
+				}).done((data) => {
+					//console.log(data);
+					$('#modalReSend').modal('toggle');
+					$('#addDerivateFile').fileinput('upload');
+					$('#data_table').DataTable().draw();
+					$('#data_table').DataTable().ajax.reload();
+					swal({
+						title: "Derivado Con Exito!!",
+						icon: "success",
+						button: "Ok"
+					});
+				});
+			}
+		});
+```
+### Funcion no Terminada
+
+al hacer click en el boton seguimiento(boton con icono de un ojo), se deplega un modal, con el seguimiento del Documento,
+se limpia el campo donde trbajaremos mediante empty ```$('#tracingData').empty();``` se toma el valor del boton ```let eyeTracing = $(this).val();```
+este se envia con la peticion realizada por Ajax, obtenemos la respuesta de backend mediante la variable ***dataUser***
+la recorremos con un *for*, revisando si la cantidad de datos es menor a 0, validamos con un *if* si creadorCod es = a quienDerivaCod
+se realiza un append del documento Principal, luego validamos si el creador es diferente del user logeado, si es correcto,
+realizamos un append de los datos e iconos, de lo contrario saltamos al bloque que sigue, el cual realiza un append, del documento
+derivado, ***este append lo realiza al ul con el id correspondiente***
+
+```javascript
+$('#data_table').on('click', '#eyeTracing', function () {
+			$('#tracingData').empty();
+			let eyeTracing = $(this).val();
+			//console.log(eyeTracing);
+			$('#modalTracing').modal('toggle');
+
+			$.ajax({
+				url: '<?php echo base_url();?>index.php/index/get_UserDataTracing',
+				method: 'post',
+				data: {idDoc: eyeTracing},
+				dataType: 'json',
+			}).done((dataUser) => {
+				//console.log(dataUser);
+				for (let i = 0; i < dataUser.length; i++) {
+					if (dataUser[i].creadorCod == dataUser[i].quienDerivaCod) {
+						$(
+							"<li class='list-group-item bg-secondary'>"
+							+ dataUser[i].userCreador + "<span class='badge badge-info'> " +
+							" Documento " + dataUser[i].fecha + "</span> " +
+							"</li><ul id='" + dataUser[i].formKey + "'></ul>").appendTo('#tracingData');
+
+						if (dataUser[i].creadorCod != <?= $_SESSION['cabcodigo']?>) {
+
+							$("<li class='list-group-item bg-secondary'>"
+								+ dataUser[i].userCreador + "<span class='badge badge-info'> " +
+								" Documento " + dataUser[i].fecha + "</span> " +
+								"</li><ul id='" + dataUser[i].formKey + "'></ul>").appendTo('#tracingData');
+						}
+
+					} else {
+
+						$(
+							"<li class='list-group-item'>" +
+							"<span class='text-dark'> " +
+							" Creo el Documento Con Fecha " + dataUser[i].fecha + "</span> "
+							+ dataUser[i].quienDeriva + " <span class='fa fa-arrow-circle-right'></span> " + dataUser[i].listaUsuarios +
+							"</li><ul id='" + dataUser[i].formKey + "'></ul>").appendTo('#tracingData #' + dataUser[i].formKey + '');
+					}
+				}
+
+
+			});
+		});
+```
+
+
+*******************
+
+al hacer click en el boton Crear Documento, nos desplegara un modal, con un ***selector de personas, asunto, n°folio, tipo de Documento,
+comentario, y un campo donde se puede agregar documentos, todos de tipo inputs*** si alguno de estos campos viene vacio, al enviar, nos
+arroja un sweetalert, diciendo que faltan campos por llenar, de lo contrario enviamos una solicitud con Ajax, y enviamos las variables
+que se refieren a los input del formulario, al recibir los datos desde el backend, le agregamos al boton con ID ***'btnSendForm'***, y
+validamos si, los datos enviados son mayor a 0 y si los archivos adjuntados son mayor a 0(esto quiere decir que se completo el formulario)
+entonces limpiamos las variables, recargamos el data table con los nuevos documentos ingresados para finalizar mostramos un sweetalert con 
+el envio de documento exitoso.
+
+```javascript
+$('#btnSendForm').on('click', (e) => {
+			e.preventDefault();
+			const select = document.querySelector('selector-webcomponent');
+			let listUser = select.getList();
+			let asunto = $('#asunto').val();
+			let folio = $('#folio').val();
+			let tipoDoc = $('#chooseType').val();
+			let comentario = $('#comentario').val();
+			let filesCount = $('#file').fileinput('getFilesCount');
+
+			if (listUser == 0 || asunto == 0 || filesCount == 0 || folio == 0 || tipoDoc == 0 || comentario == 0) {
+				swal({
+					title: "Error!",
+					text: "Faltan Campos Por Llenar!",
+					icon: "error",
+					button: "Volver"
+				});
+			} else {
+				$.ajax({
+					url: '<?= base_url();?>index.php/index/dataFormInsert',
+					type: 'post',
+					data: {
+						asunto: asunto,
+						folio: folio,
+						tipoDoc: tipoDoc,
+						comentario: comentario,
+						listUser: listUser
+					},
+					dataType: 'json'
+				}).done((data) => {
+					//console.log(data);
+					//add value to return from datFormInsert id
+					$('#btnSendForm').val(data);
+					//console.log(data);
+					//clean field form
+					if (data > 0 && filesCount > 0) {
+						$('#file').fileinput('upload');
+						$('#asunto').val('');
+						$('#folio').val('');
+						$('#chooseType').val('');
+						$('#comentario').val('');
+						$('#file').fileinput('clear');
+						select.clearList();
+						$('#modalCreateDoc').modal('hide');
+						$('#data_table').DataTable().draw();
+						$('#data_table').DataTable().ajax.reload();
+					} else {
+						console.log('Revise datos');
+					}
+
+				});
+				swal({
+					title: "Enviado Con Exito!",
+					icon: "success",
+					button: "Ok"
+				});
+			}
+		});
+```
+c
 

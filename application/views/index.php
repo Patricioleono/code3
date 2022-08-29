@@ -95,6 +95,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <script>
 	$(document).ready(() => {
 		autosize(document.querySelectorAll('textarea'));
+
 		$('#archivedBtn').on('click', function (e) {
 			$('#modalReSend').modal('toggle');
 			let id = $(this).val();
@@ -356,16 +357,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					}
 
 				});
-
 				swal({
 					title: "Enviado Con Exito!",
 					icon: "success",
 					button: "Ok"
 				});
-
-
 			}
-
 		});
 
 		//file from create new doc
@@ -445,7 +442,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			$('#footerHide').hide();
 			$('#derivationBtnSend').removeClass('d-none');
 			$('#derivateFile').removeClass('d-none');
-
 			$('#sendComentario').empty();
 			$('#docDestiny').empty();
 
@@ -658,7 +654,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 		//derivation document
 		$('#derivationBtnSend').on('click', (e) => {
-
 			let idBtn = $('#derivationBtnSend').val();
 			const derivateSelect = document.querySelector('#derivationUser');
 			let derivateUser = derivateSelect.getList();
@@ -694,8 +689,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					});
 				});
 			}
-
 		});
+
 		//file input derivation data
 		$("#addDerivateFile").fileinput({
 			language: 'es',
