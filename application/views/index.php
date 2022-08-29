@@ -407,7 +407,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				data: {idDoc: eyeTracing},
 				dataType: 'json',
 			}).done((dataUser) => {
-				console.log(dataUser);
+				//console.log(dataUser);
 				for (let i = 0; i < dataUser.length; i++) {
 					if (dataUser[i].creadorCod == dataUser[i].quienDerivaCod) {
 						$(
@@ -498,7 +498,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		$('#data_table').on('click', '#docEdit', function () {
 			$('#updateFile').fileinput('clear');
 			let idBtn = $(this).val();
-			console.log(idBtn);
+			//console.log(idBtn);
 			$('#updateDataEdit').val(idBtn);
 			$.ajax({
 				url: '<?= base_url();?>index.php/index/editReSend',
@@ -583,11 +583,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					dataType: 'json',
 				}).done((data) => {
 					//console.log(data);
-					$('#updateFile').fileinput('upload');
+
 					if ($('#updateFile').fileinput('getFilesCount', true) == 0) {
 						swal({
-							title: "No Actualizo Nada!",
-							icon: "error",
+							title: "Actualizado Sin Documento Adjunto!",
+							icon: "success",
 							button: "Ok"
 						});
 						$('#modalEdit').modal('toggle');//close modal
@@ -598,10 +598,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 						$('#data_table').DataTable().ajax.reload();
 					} else {
+						$('#updateFile').fileinput('upload');
 						$('#updateDataEdit').val(data);
 
 						swal({
-							title: "Actualizado Con Exito!",
+							title: "Campos Actualizados y Documento Agregado!",
 							icon: "success",
 							button: "Ok"
 						});

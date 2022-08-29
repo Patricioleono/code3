@@ -326,9 +326,9 @@ public function get_FirstNodo(){
 	}
 	public function update_EditDoc(){
 		$id = $this->input->post('updateId');
-		$status = 3;
+		$status = 4;
 		//add id key from form to insertUpdated Document
-		$error = $this->add_Document($id);
+		$error = $this->add_Document($id, $status);
 		echo json_encode($error);
 	}
 
