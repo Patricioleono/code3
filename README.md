@@ -1147,4 +1147,41 @@ La clase ```FormModel``` tiene las siguientes funciones:
 - ```get_UserDate``` solicitamos el usuario que crea el formulario según el id obtenido.
 - ```count_ArchivedData``` solicitamos la cantidad de datos archivados, según estado.
 
+## Flujo del Gestor
+
+```mermaid
+	graph TD;
+		EnviarDocumento-->Acciones;
+		Acciones-->Derivar-->AdjuntarDocumento;
+		Derivar-->SeleccionarPersonas;
+		Acciones-->Archivar;
+		Acciones-->Editar-->AdjuntarUnDocumentoMas;
+		Acciones-->VerSeguimiento;
+```
+
+## Flujo del Seguimiento
+
+```mermaid
+	graph TD;
+		VerSeguimiento-->DocumentoPrincipal;
+		DocumentoPrincipal-->DerivadoApersona1;
+		DerivadoApersona1-->VuelveaDerivar1;
+		DerivadoApersona1-->VuelveaDerivar2;
+		VuelveaDerivar2-->vderivar3;
+		vderivar3-->Oderiva;
+		DocumentoPrincipal-->DerivadoApersona2;
+		DerivadoApersona2-->VuelveaDerivar;
+		DocumentoPrincipal-->DerivadoApersona3;
+		DerivadoApersona3-->VuelveaDerivar3;
+		DerivadoApersona3-->VuelveaDerivar4;
+		DerivadoApersona3-->VuelveaDerivar5;
+		DocumentoPrincipal-->DerivadoApersona4;
+		DerivadoApersona4-->Deriva1;
+		DerivadoApersona4-->Deriva2;
+		Deriva2-->Vderivar1;
+		Deriva2-->Vderivar2;
+		Vderivar2-->derivados;
+		DerivadoApersona4-->Deriva3;
+```
+
 
