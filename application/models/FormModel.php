@@ -65,7 +65,8 @@ class FormModel extends CI_model
 		return $result->result_array();
 	}
 	//only user
-	public function get_UserData($key){
+	public function get_UserData($key)
+	{
 		$this->db->distinct();
 		$this->db->select('userCreador, creadorCod, userRecibe, recibeCod,');
 		$this->db->from('usuarios');

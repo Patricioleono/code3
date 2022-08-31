@@ -305,7 +305,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			$('#modalReSend').modal('toggle');
 		});
 
-		//send form with ajax click
+		//send new doc form
 		$('#btnSendForm').on('click', (e) => {
 			e.preventDefault();
 			const select = document.querySelector('selector-webcomponent');

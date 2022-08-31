@@ -48,8 +48,8 @@ class DerivativeDataModal extends CI_Model
 	}
 
 	//second derivative
-	public function get_SecondDerivative($id){
-		$session = $_SESSION['cabcodigo'];
+	public function get_SecondDerivative($id)
+	{
 		//$this->db->distinct();
 		$this->db->select('dd.listaUsuarios, dd.fecha, dd.quienDeriva, dd.quienDerivaCod, dd.codListaUser, dd.formKey, dd.id, usa.creadorCod, usa.userCreador, usa.userRecibe, usa.fecha, usa.creadorCod');
 		$this->db->from('derivarDoc dd');

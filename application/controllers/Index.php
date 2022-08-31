@@ -24,7 +24,6 @@ class Index extends CI_Controller
 //validate session data
 	public function validateUser($userSession)
 	{
-		$userSession;
 		if ($userSession) {
 			if (empty($userSession)) {
 				$this->load->view('logout');
@@ -119,7 +118,6 @@ class Index extends CI_Controller
 			echo 'No hay Destinatarios Seleccionados';
 		} else {
 			for ($i = 0; $i < count($user); $i++) {
-
 				foreach ($idForm as $key) {
 
 					$newListId = $user[$i]['value'];
@@ -194,12 +192,16 @@ class Index extends CI_Controller
 			}
 		}
 	}
+
+
 //tracing data main nodo
-public function get_FirstNodo(){
+	public function get_FirstNodo()
+	{
 		$id = $_SESSION['cabcodigo'];
 		$data = $this->FormModel->get_MainNode($id);
 		echo json_encode($data);
 	}
+
 //Get data form from model
 	public function get_DataFormAll()
 	{
@@ -261,8 +263,6 @@ public function get_FirstNodo(){
 				}
 			}
 		}
-
-
 	}
 
 	//processing data and get token API
@@ -282,10 +282,8 @@ public function get_FirstNodo(){
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
-
 		$result = curl_exec($curl);
 		curl_close($curl);
-
 		return $result;
 	}
 
@@ -306,13 +304,11 @@ public function get_FirstNodo(){
 		$id = $this->input->post('idQuery');
 		$editDoc = $this->DataFileModel->get_EditDoc($id);
 		echo json_encode($editDoc);
-
 	}
 
 	public function update_Edit()
 	{
 		$id = $this->input->post('idQuery');
-
 		$data = array(
 			'editComentario' => $this->input->post('editComentario'),
 			'editAsunto' => $this->input->post('editAsunto'),
@@ -324,7 +320,8 @@ public function get_FirstNodo(){
 		echo json_encode($result);
 
 	}
-	public function update_EditDoc(){
+	public function update_EditDoc()
+	{
 		$id = $this->input->post('updateId');
 		$status = 4;
 		//add id key from form to insertUpdated Document
